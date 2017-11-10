@@ -4,9 +4,7 @@ using UnityEngine;
 
 public class Cannonball : MonoBehaviour {
 
-    public GameObject board;
-
-    public float speed;
+    private float speed;
 
 	// Use this for initialization
 	void Start () {
@@ -16,20 +14,18 @@ public class Cannonball : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         Move();
-        CheckBounds();
 	}
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.transform.tag == "Board")
+        {
+            Destroy(gameObject);
+        }
+    }
 
     private void Move()
     {
         transform.position += transform.right * speed * Time.deltaTime;
-    }
-
-    private void CheckBounds()
-    {
-        if (Mathf.Abs(transform.position.x) > Mathf.Abs(board.transform.localScale.x / 2) ||
-            Mathf.Abs(transform.position.y) > Mathf.Abs(board.transform.localScale.y / 2))
-        {
-            Destroy(gameObject);
-        }
     }
 }

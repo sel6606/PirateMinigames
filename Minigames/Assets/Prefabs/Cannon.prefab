@@ -36,6 +36,8 @@ GameObject:
   - component: {fileID: 4401155000121800}
   - component: {fileID: 212598403909060360}
   - component: {fileID: 114449246668297778}
+  - component: {fileID: 61938587868860086}
+  - component: {fileID: 50806298944415920}
   m_Layer: 0
   m_Name: Cannon
   m_TagString: Untagged
@@ -70,6 +72,51 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!50 &50806298944415920
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1521066531731554}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
+--- !u!61 &61938587868860086
+BoxCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1521066531731554}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 12.61, y: 6.23}
+    newSize: {x: 12.61, y: 6.23}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 12.61, y: 6.23}
+  m_EdgeRadius: 0
 --- !u!114 &114449246668297778
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -81,13 +128,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e82bbe4a8ff160144b4f6b327fbed6aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  board: {fileID: 1919407865523328, guid: 9f10ffe7e49649d489f33f8133cfef2d, type: 2}
   cannonballPrefab: {fileID: 1223450603019002, guid: 60866c7fa55a0c14da51b89c69a8c379,
     type: 2}
-  spawnPos: {x: 0, y: 0, z: 0}
-  waitTimer: 0
-  speed: 0
-  onScreen: 0
 --- !u!212 &212598403909060360
 SpriteRenderer:
   m_ObjectHideFlags: 1

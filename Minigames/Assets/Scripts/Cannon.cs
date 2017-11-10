@@ -4,39 +4,85 @@ using UnityEngine;
 
 public class Cannon : MonoBehaviour {
 
-    public GameObject board;
     public GameObject cannonballPrefab;
 
-    public Vector3 spawnPos;
+    private float startTimer;
 
-    public float waitTimer;
+    private float waitTimer;
 
-    public float speed;
-    public bool onScreen;
+    private float speed;
+
+    private bool onScreen;
 
 	// Use this for initialization
 	void Start () {
-        spawnPos = transform.position;
+        startTimer = Random.Range(2.0f, 6.0f);
 
         waitTimer = 2.0f;
 
         speed = 2.0f;
+
         onScreen = false;
 	}
-	
-	// Update is called once per frame
-	void Update () {
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.transform.tag == "Entry")
+        {
+            onScreen = true;
+            Fire();
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.transform.tag == "Board")
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    // Update is called once per frame
+    void Update () {
         if (!onScreen)
         {
-            MoveOnScreen();
+            //Wait to start moving
+            if (startTimer >= 0)
+            {
+                startTimer -= Time.deltaTime;
+
+                if (startTimer < 0)
+                {
+                    //Get a random player
+                    int rand = Random.Range(1, 3);
+
+                    //Get player's position
+                    Vector3 playerPos = GameObject.FindGameObjectWithTag("Player" + rand).transform.position;
+
+                    //Get vector to player
+                    Vector3 toPlayer = playerPos - transform.position;
+
+                    //Set right vector for movement
+                    transform.right = toPlayer.normalized;
+                }
+            }
+
+            //Then start moving
+            else
+            {
+                MoveOnScreen();
+            }
         }
         
         else
         {
-            if (waitTimer > 0)
+            //Wait on the screen
+            if (waitTimer >= 0)
             {
                 waitTimer -= Time.deltaTime;
             }
+
+            //Then move off screen
             else
             {
                 MoveOffScreen();
@@ -46,17 +92,14 @@ public class Cannon : MonoBehaviour {
 
     private void MoveOnScreen()
     {
-        if (Mathf.Abs(transform.position.x) > Mathf.Abs(board.transform.localScale.x / 2) ||
-            Mathf.Abs(transform.position.y) > Mathf.Abs(board.transform.localScale.y / 2))
-        {
-            //Move forward
-            transform.position += transform.right * speed * Time.deltaTime;
-        }
-        else
-        {
-            onScreen = true;
-            Fire();
-        }
+        //Move forward
+        transform.position += transform.right * speed * Time.deltaTime;
+    }
+
+    private void MoveOffScreen()
+    {
+        //Move backward
+        transform.position += -transform.right * speed * Time.deltaTime;
     }
 
     private void Fire()
@@ -66,19 +109,5 @@ public class Cannon : MonoBehaviour {
 
         //Set cannonball's right to the same as the cannon
         cannonball.transform.right = gameObject.transform.right;
-    }
-
-    private void MoveOffScreen()
-    {
-        if (Mathf.Abs(transform.position.x) < Mathf.Abs(spawnPos.x) ||
-            Mathf.Abs(transform.position.y) < Mathf.Abs(spawnPos.y))
-        {
-            //Move forward
-            transform.position += -transform.right * speed * Time.deltaTime;
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
     }
 }

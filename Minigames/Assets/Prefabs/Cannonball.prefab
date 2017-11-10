@@ -21,10 +21,11 @@ GameObject:
   - component: {fileID: 4551508831191378}
   - component: {fileID: 212915126585845550}
   - component: {fileID: 114620775967153530}
-  - component: {fileID: 61130290381450640}
+  - component: {fileID: 61494992316103816}
+  - component: {fileID: 50554645074266610}
   m_Layer: 0
   m_Name: Cannonball
-  m_TagString: Cannon
+  m_TagString: Cannonball
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -42,7 +43,27 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!61 &61130290381450640
+--- !u!50 &50554645074266610
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1223450603019002}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 4
+--- !u!61 &61494992316103816
 BoxCollider2D:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -51,7 +72,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -78,8 +99,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77277bcf9ef2c1843bc96836884149d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  board: {fileID: 1919407865523328, guid: 9f10ffe7e49649d489f33f8133cfef2d, type: 2}
-  speed: 0
 --- !u!212 &212915126585845550
 SpriteRenderer:
   m_ObjectHideFlags: 1

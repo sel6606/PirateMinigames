@@ -6,52 +6,89 @@ public class Player : MonoBehaviour {
 
     private MiniGame game;
 
-    public string left;
-    public string right;
-    public string up;
-    public string down;
+    public ParticleSystem particles;
 
-    public float speed;
+    private KeyCode left;
+    private KeyCode right;
+    private KeyCode up;
+    private KeyCode down;
+
+    private bool isAlive;
+
+    private float speed;
+
+    public bool IsAlive
+    {
+        get { return isAlive; }
+    }
 
 	// Use this for initialization
 	void Start () {
         game = GameObject.Find("MiniGameManager").GetComponent<MiniGame>();
+
+        if (gameObject.tag == "Player1")
+        {
+            left = KeyCode.A;
+            right = KeyCode.D;
+            up = KeyCode.W;
+            down = KeyCode.S;
+        }
+        else
+        {
+            left = KeyCode.LeftArrow;
+            right = KeyCode.RightArrow;
+            up = KeyCode.UpArrow;
+            down = KeyCode.DownArrow;
+        }
+
+        isAlive = true;
 
         speed = 6.0f;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        ProcessInput();
+        if (!game.GameOver)
+        {
+            ProcessInput();
+        }
 	}
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("Collision");
-    }
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.tag == "Cannon")
+        if (collision.transform.tag == "Cannonball")
         {
-            if (!game.gameOver)
+            if (!game.GameOver)
             {
-                game.gameOver = true;
-                Destroy(gameObject);
+                //Mark that the game is over
+                game.GameOver = true;
+
+                //Show explosion
+                particles.Play();
+
+                //Mark that the player lost
+                isAlive = false;
+
+                //Make player invisible
+                gameObject.GetComponent<SpriteRenderer>().enabled = false;
+
+                //Switch to the game over game state
+                game.ChangeGameState();
+
+                //Set the winner of the game
+                game.DisplayWinner();
             }
         }
-
-        Debug.Log("Collision");
     }
+    
 
     private void ProcessInput()
     {
         if (Input.GetKey(up))
         {
-            if (transform.right.y < 1)
+            if (transform.right.y < 0.9)
             {
                 transform.right = transform.up;
-                Debug.Log("Set Up");
             }
 
             transform.position += transform.right * speed * Time.deltaTime;
@@ -59,10 +96,9 @@ public class Player : MonoBehaviour {
 
         else if (Input.GetKey(down))
         {
-            if (transform.right.y > -1)
+            if (transform.right.y > -0.9)
             {
                 transform.right = -transform.up;
-                Debug.Log("Set Down");
             }
 
             transform.position += transform.right * speed * Time.deltaTime;
@@ -70,10 +106,9 @@ public class Player : MonoBehaviour {
 
         else if (Input.GetKey(right))
         {
-            if (transform.right.x > -1)
+            if (transform.right.x > -0.9)
             {
                 transform.right = new Vector3(-1,0,0);
-                Debug.Log("Set Right");
             }
 
             transform.position += transform.right * speed * Time.deltaTime;
@@ -81,10 +116,9 @@ public class Player : MonoBehaviour {
 
         else if (Input.GetKey(left))
         {
-            if (transform.right.x < 1)
+            if (transform.right.x < 0.9)
             {
                 transform.right = new Vector3(1,0,0);
-                Debug.Log("Set Left");
             }
 
             transform.position += transform.right * speed * Time.deltaTime;
