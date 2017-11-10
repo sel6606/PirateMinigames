@@ -2269,7 +2269,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: Player 2 - Arrow Keys
+  m_Text: Player 2 - Arrow Keys (Red Ship)
 --- !u!222 &1610917325
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2343,7 +2343,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: Player 1 - WASD
+  m_Text: Player 1 - WASD (White Ship)
 --- !u!222 &1750709089
 CanvasRenderer:
   m_ObjectHideFlags: 0
