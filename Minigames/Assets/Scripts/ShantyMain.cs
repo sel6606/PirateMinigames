@@ -2,42 +2,53 @@
 using UnityEngine.UI;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class ShantyMain : MonoBehaviour {
 
     public string[] shantyArr;
     public string shanty;
     public List<string> wronganswers;
+    public string correctAnswer;
 
     public Button optionOne;
     public Button optionTwo;
     public Button optionThree;
-    public GameObject shantyText;
-    public string correctAnswer;
+    public Text shantyText;
 
 	// Use this for initialization
 	void Start () {
-        shantyArr = new string[3];
+        shantyArr = new string[5];
         shantyArr[0] = "Yo Ho Ho and a Bottle of ___.";
-        shantyArr[1] = "Dave Jones' ___.";
+        shantyArr[1] = "Davy Jones' ___.";
         shantyArr[2] = "Pirates say \"___!\"";
+        shantyArr[3] = "You're a filthy ___lubber!";
+        shantyArr[4] = "Blow - Blow - Blow the ___ down!";
 
         wronganswers.Add("Vodka");
         wronganswers.Add("Water");
         wronganswers.Add("Potato");
+        wronganswers.Add("Sea");
+        wronganswers.Add("Gold");
+        wronganswers.Add("Wooden");
+        wronganswers.Add("Dubloon");
+        wronganswers.Add("Captain");
 
         PlayGame();
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		
+        
 	}
 
     public void PlayGame()
     {
         GetRandomShanty();
         CreateOptions();
+        optionOne.onClick.AddListener(delegate { OptionClick(optionOne); });
+        optionTwo.onClick.AddListener(delegate { OptionClick(optionTwo); });
+        optionThree.onClick.AddListener(delegate { OptionClick(optionThree); });
     }
 
     /// <summary>
@@ -56,10 +67,19 @@ public class ShantyMain : MonoBehaviour {
         {
             correctAnswer = "Locker";
         }
-        else
+        else if (random == 2)
         {
             correctAnswer = "Arrgh";
         }
+        else if (random == 3)
+        {
+            correctAnswer = "Land";
+        }
+        else
+        {
+            correctAnswer = "Man";
+        }
+        shantyText.text = shanty;
 
         return shanty;
     }
@@ -95,6 +115,21 @@ public class ShantyMain : MonoBehaviour {
         else
         {
             optionThree.GetComponentInChildren<Text>().text = wronganswers[(int)Random.Range(0, wronganswers.Count)];
+        }
+    }
+
+    public void OptionClick(Button option)
+    {
+        //Debug.Log("Button Pressed!");
+        //Debug.Log(option.GetComponentInChildren<Text>().text);
+        if (option.GetComponentInChildren<Text>().text == correctAnswer)
+        {
+            shantyText.text = "You Won!";
+        }
+        else
+        {
+            shantyText.text = "Better Luck Next Time!";
+            
         }
     }
 }
