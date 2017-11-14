@@ -10,14 +10,20 @@ public class WordBank : MonoBehaviour
 {
     public TextAsset[] wordLists;
     public GameObject rowPrefab;
+    public InputField playerInput;
     public Canvas canvas;
+    public Text listName;
 
     private string[] currentWordBank;
+    private List<string> wordBankList;
+    private List<Text> allWords;
 
 	// Use this for initialization
 	void Start ()
     {
+        allWords = new List<Text>();
         InitializeWordBank();
+        playerInput.Select();
 	}
 	
 	// Update is called once per frame
@@ -31,14 +37,23 @@ public class WordBank : MonoBehaviour
     /// <param name="index">The index of the word bank</param>
     void SetWordBank(int index)
     {
+        listName.text=wordLists[index].name;
         string temp = wordLists[index].text;
 
         currentWordBank = temp.Split('\n');
 
-        foreach(string s in currentWordBank)
+        //Normalize the words
+        for(int i = 0; i < currentWordBank.Length; i++)
         {
-            Debug.Log(s);
+            currentWordBank[i] = currentWordBank[i].Replace("\r", string.Empty);
         }
+
+        wordBankList = new List<string>(currentWordBank);
+
+        //foreach(string s in currentWordBank)
+        //{
+            //Debug.Log(s);
+        //}
     }
 
     /// <summary>
@@ -47,7 +62,7 @@ public class WordBank : MonoBehaviour
     void InitializeWordBank()
     {
         //Choose a random work bank from the possible word banks
-        int randomIndex = Random.Range(0, wordLists.Length - 1);
+        int randomIndex = Random.Range(0, wordLists.Length);
         SetWordBank(randomIndex);
 
         //Calculate the number of rows to display
@@ -79,6 +94,7 @@ public class WordBank : MonoBehaviour
                 if(wordNumber < currentWordBank.Length)
                 {
                     words[j].text = currentWordBank[wordNumber];
+                    allWords.Add(words[j]);
                 }
                 else
                 {
@@ -90,5 +106,37 @@ public class WordBank : MonoBehaviour
             float yPos = i * -40;
             rectangleTransform.anchoredPosition = new Vector2(0, yPos);
         }
+    }
+
+    /// <summary>
+    /// Checks the current input that has been entered by the player
+    /// </summary>
+    public void CheckInput()
+    {
+        string input = playerInput.text;
+        int index = -1;
+
+        foreach(string s in wordBankList)
+        {
+            index++;
+
+            if (input.Equals(s, System.StringComparison.OrdinalIgnoreCase))
+            {
+                allWords[index].enabled = true;
+                allWords.RemoveAt(index);
+                wordBankList.RemoveAt(index);
+                ClearInput();
+                break;
+            }
+        }
+    }
+
+    /// <summary>
+    /// Clears the input field
+    /// </summary>
+    public void ClearInput()
+    {
+        playerInput.Select();
+        playerInput.text = "";
     }
 }
