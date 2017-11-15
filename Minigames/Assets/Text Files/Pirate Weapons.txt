@@ -14,7 +14,3 @@ dirk
 scimitar
 grenade
 grappling hook
-knife
-broadsword
-saber
-matchlock

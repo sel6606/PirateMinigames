@@ -37,7 +37,7 @@ public class WordBank : MonoBehaviour
     /// <param name="index">The index of the word bank</param>
     void SetWordBank(int index)
     {
-        listName.text=wordLists[index].name;
+        listName.text="Category: " + wordLists[index].name;
         string temp = wordLists[index].text;
 
         currentWordBank = temp.Split('\n');
