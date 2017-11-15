@@ -21,21 +21,51 @@ public class PlayerOne : MonoBehaviour {
     //moves Player One in the four cardinal directions
     public void Move()
     {
-        if (Input.GetKeyDown(KeyCode.W))
+        if (gameObject.tag == "PlayerOne")
         {
-            this.transform.Translate(0, 0, -speed);
+            //move up
+            if (Input.GetKey(KeyCode.W))
+            {
+                
+            }
+            //move down
+            if (Input.GetKey(KeyCode.S))
+            {
+                this.transform.Translate(0, 0, speed);
+            }
+            //move left
+            if (Input.GetKey(KeyCode.A))
+            {
+                this.transform.Translate(-speed, 0, 0);
+            }
+            //move right
+            if (Input.GetKey(KeyCode.D))
+            {
+                this.transform.Translate(speed, 0, 0);
+            }
         }
-        if (Input.GetKeyDown(KeyCode.S))
+        if (gameObject.tag == "PlayerTwo")
         {
-            this.transform.Translate(0, 0, speed);
-        }
-        if (Input.GetKeyDown(KeyCode.A))
-        {
-            this.transform.Translate(-speed, 0, 0);
-        }
-        if (Input.GetKeyDown(KeyCode.D))
-        {
-            this.transform.Translate(speed, 0, 0);
+            //move up
+            if (Input.GetKey(KeyCode.UpArrow))
+            {
+
+            }
+            //move down
+            if (Input.GetKey(KeyCode.DownArrow))
+            {
+
+            }
+            //move left
+            if (Input.GetKey(KeyCode.LeftArrow))
+            {
+
+            }
+            //move right
+            if (Input.GetKey(KeyCode.RightArrow))
+            {
+
+            }
         }
     }
 }
