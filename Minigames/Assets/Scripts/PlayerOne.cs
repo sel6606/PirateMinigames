@@ -26,22 +26,22 @@ public class PlayerOne : MonoBehaviour {
             //move up
             if (Input.GetKey(KeyCode.W))
             {
-                
+                transform.position += transform.right * speed * Time.deltaTime;
             }
             //move down
             if (Input.GetKey(KeyCode.S))
             {
-                this.transform.Translate(0, 0, speed);
+                transform.position -= transform.right * speed * Time.deltaTime;
             }
             //move left
             if (Input.GetKey(KeyCode.A))
             {
-                this.transform.Translate(-speed, 0, 0);
+                transform.position += transform.right * speed * Time.deltaTime;
             }
             //move right
             if (Input.GetKey(KeyCode.D))
             {
-                this.transform.Translate(speed, 0, 0);
+                transform.position -= transform.right * speed * Time.deltaTime;
             }
         }
         if (gameObject.tag == "PlayerTwo")
