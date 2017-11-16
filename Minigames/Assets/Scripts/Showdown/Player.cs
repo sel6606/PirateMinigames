@@ -29,9 +29,9 @@ public class Player : MonoBehaviour {
             {
                 //if (transform.right.y < 0.9)
                 //{
-                    transform.right = new Vector3(1,0,0);
+                transform.right = new Vector3(1, 0, 0);
                 //}
-                transform.position += transform.right * speed * Time.deltaTime;
+                transform.position += transform.up * speed * Time.deltaTime;
             }
             //move down
             if (Input.GetKey(KeyCode.S))
@@ -40,14 +40,14 @@ public class Player : MonoBehaviour {
                 //{
                 transform.right = new Vector3(-1, 0, 0);
                 //}
-                transform.position -= transform.right * speed * Time.deltaTime;
+                transform.position -= transform.up * speed * Time.deltaTime;
             }
             //move left
             if (Input.GetKey(KeyCode.A))
             {
                 //if (transform.right.x > 0.9)
                 //{
-                transform.right = new Vector3(0, 1, 0);
+                transform.right = new Vector3(-1, 0, 0);
                 //}
                 transform.position += transform.right * speed * Time.deltaTime;
             }
@@ -56,9 +56,9 @@ public class Player : MonoBehaviour {
             {
                 //if (transform.right.x < 0.9)
                 //{
-                transform.right = new Vector3(0, -1, 0);
+                transform.right = new Vector3(1, 0, 0);
                 //}
-                transform.position -= transform.right * speed * Time.deltaTime;
+                transform.position += transform.right * speed * Time.deltaTime;
             }
         }
         if (gameObject.tag == "PlayerTwo")

@@ -19,6 +19,7 @@ public class Showdown : MonoBehaviour {
         //instructionScreen.SetActive(false);
         //gameOver.SetActive(false);
         //gameScreen.SetActive(true);
+        SpawnPlayers();
 	}
 	
 	// Update is called once per frame
