@@ -5,13 +5,22 @@ using UnityEngine;
 public class Player : MonoBehaviour {
 
     public int health;
-    private float speed;
+    public float speed;
+
+    public int Health
+    {
+        get { return health; }
+        set { health = value; }
+    }
 
 	// Use this for initialization
 	void Start () {
         health = 1;
-        speed = 3.0f;
-        //transform.right = new Vector3(1, 0, 0);
+        speed = 4.0f;
+        if (this.gameObject.name == "PlayerTwo")
+        {
+            transform.right = new Vector3(-1, 0, 0);
+        }
 	}
 	
 	// Update is called once per frame
@@ -19,7 +28,7 @@ public class Player : MonoBehaviour {
         Move();
 	}
 
-    //moves Player One in the four cardinal directions
+    //moves the players in the four cardinal directions
     public void Move()
     {
         if (this.gameObject.name == "PlayerOne")
@@ -27,61 +36,53 @@ public class Player : MonoBehaviour {
             //move up
             if (Input.GetKey(KeyCode.W))
             {
-                //if (transform.right.y < 0.9)
-                //{
                 transform.right = new Vector3(1, 0, 0);
-                //}
                 transform.position += transform.up * speed * Time.deltaTime;
             }
             //move down
             if (Input.GetKey(KeyCode.S))
             {
-                //if (transform.right.y > 0.9)
-                //{
                 transform.right = new Vector3(-1, 0, 0);
-                //}
                 transform.position -= transform.up * speed * Time.deltaTime;
             }
             //move left
             if (Input.GetKey(KeyCode.A))
             {
-                //if (transform.right.x > 0.9)
-                //{
                 transform.right = new Vector3(-1, 0, 0);
-                //}
                 transform.position += transform.right * speed * Time.deltaTime;
             }
             //move right
             if (Input.GetKey(KeyCode.D))
             {
-                //if (transform.right.x < 0.9)
-                //{
                 transform.right = new Vector3(1, 0, 0);
-                //}
                 transform.position += transform.right * speed * Time.deltaTime;
             }
         }
-        if (gameObject.tag == "PlayerTwo")
+        if (this.gameObject.name == "PlayerTwo")
         {
             //move up
             if (Input.GetKey(KeyCode.UpArrow))
             {
-                transform.position += transform.right * speed * Time.deltaTime;
+                transform.right = new Vector3(1, 0, 0);
+                transform.position += transform.up * speed * Time.deltaTime;
             }
             //move down
             if (Input.GetKey(KeyCode.DownArrow))
             {
-                transform.position -= transform.right * speed * Time.deltaTime;
+                transform.right = new Vector3(-1, 0, 0);
+                transform.position -= transform.up * speed * Time.deltaTime;
             }
             //move left
             if (Input.GetKey(KeyCode.LeftArrow))
             {
+                transform.right = new Vector3(-1, 0, 0);
                 transform.position += transform.right * speed * Time.deltaTime;
             }
             //move right
             if (Input.GetKey(KeyCode.RightArrow))
             {
-                transform.position -= transform.right * speed * Time.deltaTime;
+                transform.right = new Vector3(1, 0, 0);
+                transform.position += transform.right * speed * Time.deltaTime;
             }
         }
     }
