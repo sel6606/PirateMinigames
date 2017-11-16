@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerOne : MonoBehaviour {
+public class Player : MonoBehaviour {
 
     public int health;
     private float speed;
@@ -10,7 +10,7 @@ public class PlayerOne : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         health = 1;
-        speed = 3.0f;
+        speed = 1.0f;
 	}
 	
 	// Update is called once per frame
@@ -24,7 +24,7 @@ public class PlayerOne : MonoBehaviour {
         if (gameObject.tag == "PlayerOne")
         {
             //move up
-            if (Input.GetKey(KeyCode.W))
+            if (Input.GetKeyDown(KeyCode.W))
             {
                 transform.position += transform.right * speed * Time.deltaTime;
             }
@@ -49,22 +49,22 @@ public class PlayerOne : MonoBehaviour {
             //move up
             if (Input.GetKey(KeyCode.UpArrow))
             {
-
+                transform.position += transform.right * speed * Time.deltaTime;
             }
             //move down
             if (Input.GetKey(KeyCode.DownArrow))
             {
-
+                transform.position -= transform.right * speed * Time.deltaTime;
             }
             //move left
             if (Input.GetKey(KeyCode.LeftArrow))
             {
-
+                transform.position += transform.right * speed * Time.deltaTime;
             }
             //move right
             if (Input.GetKey(KeyCode.RightArrow))
             {
-
+                transform.position -= transform.right * speed * Time.deltaTime;
             }
         }
     }
