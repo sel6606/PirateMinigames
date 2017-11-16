@@ -9,13 +9,21 @@ public class Showdown : MonoBehaviour {
     public GameObject gameScreen;
     public GameObject gameOver;
 
+    public GameObject pOne;
+    public GameObject pTwo;
+
 	// Use this for initialization
 	void Start () {
-		
+        instructionScreen.SetActive(true);
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		
 	}
+
+    public void SpawnPlayers()
+    {
+        
+    }
 }
