@@ -12,9 +12,13 @@ public class Showdown : MonoBehaviour {
     public GameObject pOne;
     public GameObject pTwo;
 
+    public GameObject playerSprite;
+
 	// Use this for initialization
 	void Start () {
-        instructionScreen.SetActive(true);
+        //instructionScreen.SetActive(false);
+        //gameOver.SetActive(false);
+        //gameScreen.SetActive(true);
 	}
 	
 	// Update is called once per frame
@@ -24,6 +28,11 @@ public class Showdown : MonoBehaviour {
 
     public void SpawnPlayers()
     {
-        
+        pOne = Instantiate(playerSprite, new Vector3(1, 0, 0), Quaternion.identity);
+        pOne.name = "PlayerOne";
+        pOne.AddComponent<Player>();
+        pTwo = Instantiate(playerSprite, new Vector3(-1, 0, 0), Quaternion.identity);
+        pTwo.name = "PlayerTwo";
+        pTwo.AddComponent<Player>();
     }
 }
