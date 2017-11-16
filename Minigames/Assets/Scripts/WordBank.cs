@@ -9,10 +9,11 @@ using UnityEngine.UI;
 public class WordBank : MonoBehaviour
 {
     public TextAsset[] wordLists;
-    public GameObject rowPrefab;
+    public GameObject cellPrefab;
     public InputField playerInput;
     public Canvas canvas;
     public Text listName;
+    public GameObject listPanel;
 
     private string[] currentWordBank;
     private List<string> wordBankList;
@@ -67,44 +68,33 @@ public class WordBank : MonoBehaviour
 
         //Calculate the number of rows to display
         int numWords = currentWordBank.Length;
-        int numRow = numWords / 5;
+        int numRows = numWords / 5;
 
+        //If the number of words is not divisible by 5, there is one more row than what was calculated
         if(numWords % 5 != 0)
         {
-            numRow++;
+            numRows++;
         }
 
-        //Initialize each row of words
-        for(int i = 0; i < numRow; i++)
+        //Calculate the height of each cell based off of the number of rows
+        float height = listPanel.GetComponent<RectTransform>().rect.height / numRows ;
+
+        //Set the width and height of the cell
+        //Since there is a maximum of 5 cells per row, the width is a fixed value
+        listPanel.GetComponent<GridLayoutGroup>().cellSize = new Vector2(200, height);
+
+        //Initialize each word
+        for (int i = 0; i < numWords; i++)
         {
-            //Instantiate a row, and get the rectTransform
-            GameObject temp = Instantiate(rowPrefab,canvas.transform, false);
-            RectTransform rectangleTransform = temp.GetComponent<RectTransform>();
+            //Instantiate a word and set the cell as a child of the panel
+            GameObject temp = Instantiate(cellPrefab,listPanel.transform, false);
 
-            //Retrieve the text objects for each item in the row
-            Text[] words = temp.GetComponentsInChildren<Text>();
+            //Retrieve the text object for the item
+            Text word = temp.GetComponentInChildren<Text>();
 
-            //Iterate through each item in the row
-            for(int j = 0; j < 5; j++)
-            {
-                //Calculate which word to add to this item
-                int wordNumber = (5 * i) + j;
-
-                //Make sure there are still words left, otherwise, destroy the item in the row
-                if(wordNumber < currentWordBank.Length)
-                {
-                    words[j].text = currentWordBank[wordNumber];
-                    allWords.Add(words[j]);
-                }
-                else
-                {
-                    Destroy(words[j].gameObject.transform.parent.gameObject);
-                }
-            }
-
-            //Position the rows
-            float yPos = i * -40;
-            rectangleTransform.anchoredPosition = new Vector2(0, yPos);
+            //Set the text for the word
+            word.text = currentWordBank[i];
+            allWords.Add(word);
         }
     }
 
