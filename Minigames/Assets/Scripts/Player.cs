@@ -24,21 +24,37 @@ public class Player : MonoBehaviour {
         if (gameObject.tag == "PlayerOne")
         {
             //move up
+            if (transform.right.y < 0.9)
+            {
+                transform.right = transform.up;
+            }
             if (Input.GetKeyDown(KeyCode.W))
             {
                 transform.position += transform.right * speed * Time.deltaTime;
             }
             //move down
+            if (transform.right.y > 0.9)
+            {
+                transform.right = transform.up;
+            }
             if (Input.GetKey(KeyCode.S))
             {
                 transform.position -= transform.right * speed * Time.deltaTime;
             }
             //move left
+            if (transform.right.x > 0.9)
+            {
+                transform.right = transform.up;
+            }
             if (Input.GetKey(KeyCode.A))
             {
                 transform.position += transform.right * speed * Time.deltaTime;
             }
             //move right
+            if (transform.right.x < 0.9)
+            {
+                transform.right = transform.up;
+            }
             if (Input.GetKey(KeyCode.D))
             {
                 transform.position -= transform.right * speed * Time.deltaTime;
