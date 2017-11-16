@@ -11,6 +11,7 @@ public class Player : MonoBehaviour {
 	void Start () {
         health = 1;
         speed = 1.0f;
+        transform.right = new Vector3(1, 0, 0);
 	}
 	
 	// Update is called once per frame
@@ -21,42 +22,42 @@ public class Player : MonoBehaviour {
     //moves Player One in the four cardinal directions
     public void Move()
     {
-        if (gameObject.tag == "PlayerOne")
+        if (this.gameObject.name == "PlayerOne")
         {
             //move up
-            if (transform.right.y < 0.9)
+            if (Input.GetKey(KeyCode.W))
             {
-                transform.right = transform.up;
-            }
-            if (Input.GetKeyDown(KeyCode.W))
-            {
+                if (transform.right.y < 0.9)
+                {
+                    transform.right = transform.up;
+                }
                 transform.position += transform.right * speed * Time.deltaTime;
             }
             //move down
-            if (transform.right.y > 0.9)
-            {
-                transform.right = transform.up;
-            }
             if (Input.GetKey(KeyCode.S))
             {
+                if (transform.right.y > 0.9)
+                {
+                    transform.right = transform.up;
+                }
                 transform.position -= transform.right * speed * Time.deltaTime;
             }
             //move left
-            if (transform.right.x > 0.9)
-            {
-                transform.right = transform.up;
-            }
             if (Input.GetKey(KeyCode.A))
             {
+                if (transform.right.x > 0.9)
+                {
+                    transform.right = transform.up;
+                }
                 transform.position += transform.right * speed * Time.deltaTime;
             }
             //move right
-            if (transform.right.x < 0.9)
-            {
-                transform.right = transform.up;
-            }
             if (Input.GetKey(KeyCode.D))
             {
+                if (transform.right.x < 0.9)
+                {
+                    transform.right = transform.up;
+                }
                 transform.position -= transform.right * speed * Time.deltaTime;
             }
         }
