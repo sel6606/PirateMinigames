@@ -78,8 +78,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\Timer.cs" />
-    <Compile Include="Assets\Scripts\WordBank.cs" />
+    <Compile Include="Assets\Scripts\Word Game Scripts\Timer.cs" />
+    <Compile Include="Assets\Scripts\Word Game Scripts\WordBank.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Text Files\Famous Pirates.txt" />
