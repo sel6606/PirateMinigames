@@ -8,19 +8,35 @@ using UnityEngine.UI;
 /// </summary>
 public class WordBank : MonoBehaviour
 {
+    #region Public Variables
     public TextAsset[] wordLists;
     public GameObject cellPrefab;
     public InputField playerInput;
     public Canvas canvas;
     public Text listName;
     public GameObject listPanel;
+    #endregion
 
+    #region Class Variables
     private string[] currentWordBank;
     private List<string> wordBankList;
     private List<Text> allWords;
+    #endregion
 
-	// Use this for initialization
-	void Start ()
+    #region Properties
+    public List<string> WordBankList
+    {
+        get { return wordBankList; }
+    }
+
+    public int TotalWords
+    {
+        get { return currentWordBank.Length; }
+    }
+    #endregion
+
+    // Use this for initialization
+    void Start ()
     {
         allWords = new List<Text>();
         InitializeWordBank();
