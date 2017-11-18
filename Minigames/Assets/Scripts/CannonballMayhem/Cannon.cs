@@ -20,7 +20,7 @@ public class Cannon : MonoBehaviour {
 
         waitTimer = 2.0f;
 
-        speed = 2.0f;
+        speed = 1.0f;
 
         onScreen = false;
 	}

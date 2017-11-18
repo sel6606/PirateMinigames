@@ -21,8 +21,8 @@ GameObject:
   - component: {fileID: 4551508831191378}
   - component: {fileID: 212915126585845550}
   - component: {fileID: 114620775967153530}
-  - component: {fileID: 61494992316103816}
   - component: {fileID: 50554645074266610}
+  - component: {fileID: 58487617371041316}
   m_Layer: 0
   m_Name: Cannonball
   m_TagString: Cannonball
@@ -38,7 +38,7 @@ Transform:
   m_GameObject: {fileID: 1223450603019002}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 8.92, y: 0, z: 1}
-  m_LocalScale: {x: 0.4, y: 0.4, z: 0.4}
+  m_LocalScale: {x: 0.12, y: 0.12, z: 0.12}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -63,8 +63,8 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!61 &61494992316103816
-BoxCollider2D:
+--- !u!58 &58487617371041316
+CircleCollider2D:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
@@ -76,18 +76,8 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 2.68, y: 2.53}
-    newSize: {x: 2.68, y: 2.53}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 2.68, y: 2.53}
-  m_EdgeRadius: 0
+  m_Radius: 1.34
 --- !u!114 &114620775967153530
 MonoBehaviour:
   m_ObjectHideFlags: 1

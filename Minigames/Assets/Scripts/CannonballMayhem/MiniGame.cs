@@ -13,7 +13,12 @@ public class MiniGame : MonoBehaviour {
     public Text winner;
 
     //GameObjects in scene
+    public GameObject background;
+    public GameObject boardCollider;
+    public GameObject[] bounds;
+
     public GameObject cannonPrefab;
+    public GameObject entryPoint;
     public GameObject[] spawnPoints;
     public GameObject[] playerPrefabs;
     public GameObject[] players;
@@ -62,11 +67,124 @@ public class MiniGame : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+        SetBackgroundToScreen();
+
         if (isStarted && !gameOver)
         {
             Play();
         }
 	}
+
+    /// <summary>
+    /// Scales the background to fit the screen
+    /// </summary>
+    private void SetBackgroundToScreen()
+    {
+        /* 
+            This only works if the camera is orthographic and the x and y of the
+            background position is set to 0.
+            In Commented Useful Code, SetBackgroundToScreen2() works for all cases.
+        */
+
+        //Precheck to avoid setting background to screen over and over
+        Vector3 backgroundToScreen = Camera.main.WorldToScreenPoint(new Vector3(-background.transform.localScale.x / 2.0f, background.transform.localScale.y / 2.0f, 0.0f));
+        if (backgroundToScreen.x == Screen.width && backgroundToScreen.y == Screen.height) //background already set to screen
+        {
+            return;
+        }
+
+        //Get screen width and height
+        float width = Screen.width;
+        float height = Screen.height;
+
+        //Convert to world coordinates
+        Vector3 screenToWorld = Camera.main.ScreenToWorldPoint(new Vector3(width, height, 0.0f));
+
+        //Get distance from background's center to the world coordinates
+        float xDistance = Mathf.Abs(background.transform.position.x - screenToWorld.x); //halfwidth.x
+        float yDistance = Mathf.Abs(background.transform.position.y - screenToWorld.y); //halfwidth.y
+
+        //Scale the game by this distance
+        background.transform.localScale = new Vector3(xDistance * 2.0f, yDistance * 2.0f, background.transform.localScale.z);
+        boardCollider.transform.localScale = new Vector3(xDistance * 2.0f, yDistance * 2.0f, boardCollider.transform.localScale.z);
+        entryPoint.transform.localScale = new Vector3(xDistance * 2.0f, yDistance * 2.0f, entryPoint.transform.localScale.z);
+
+        //Spawn points
+        for (int i = 0; i < spawnPoints.Length; i++)
+        {
+            if (spawnPoints[i].tag == "Vertical")
+            {
+                spawnPoints[i].transform.localScale = new Vector3(1.0f, yDistance * 2.0f, 1.0f);
+
+                if (spawnPoints[i].name == "Spawn (Right)")
+                {
+                    spawnPoints[i].transform.position = new Vector3(-xDistance - 3.0f, 0.0f, 1.0f);
+                }
+                else
+                {
+                    spawnPoints[i].transform.position = new Vector3(xDistance + 3.0f, 0.0f, 1.0f);
+                }
+            }
+            else
+            {
+                spawnPoints[i].transform.localScale = new Vector3(xDistance * 2.0f, 1.0f, 1.0f);
+
+                if (spawnPoints[i].name == "Spawn (Top)")
+                {
+                    spawnPoints[i].transform.position = new Vector3(0.0f, yDistance + 3.0f, 1.0f);
+                }
+                else
+                {
+                    spawnPoints[i].transform.position = new Vector3(0.0f, -yDistance - 3.0f, 1.0f);
+                }
+            }
+        }
+
+        //Resizes and repositions bounds based on the screen size
+        for (int i = 0; i < bounds.Length; i++)
+        {
+            //Right bound
+            if (bounds[i].name == "Right Bound")
+            {
+                bounds[i].transform.localScale = new Vector3(0.5f, yDistance * 2.0f, 1.0f);
+                bounds[i].transform.position = new Vector3(xDistance, 0.0f, 1.0f);
+            }
+
+            //Left bound
+            else if (bounds[i].name == "Left Bound")
+            {
+                bounds[i].transform.localScale = new Vector3(0.5f, yDistance * 2.0f, 1.0f);
+                bounds[i].transform.position = new Vector3(-xDistance, 0.0f, 1.0f);
+            }
+
+            //Top bound
+            else if (bounds[i].name == "Top Bound")
+            {
+                bounds[i].transform.localScale = new Vector3(xDistance * 2.0f, 0.5f, 1.0f);
+                bounds[i].transform.position = new Vector3(0.0f, yDistance, 1.0f);
+            }
+
+            //Bottom bound
+            else
+            {
+                bounds[i].transform.localScale = new Vector3(xDistance * 2.0f, 0.5f, 1.0f);
+                bounds[i].transform.position = new Vector3(0.0f, -yDistance, 1.0f);
+            }
+        }
+
+        //Put player back on board if they're off the board
+        for (int i = 0; i < players.Length; i++)
+        {
+            if (players[i] != null)
+            {
+                if (Mathf.Abs(players[i].transform.position.x) > xDistance ||
+                Mathf.Abs(players[i].transform.position.y) > yDistance)
+                {
+                    players[i].transform.position = new Vector3(0.0f, 0.0f, 1.0f);
+                }
+            }
+        }
+    }
 
     /// <summary>
     /// Called when play button is clicked to start the game
@@ -109,7 +227,7 @@ public class MiniGame : MonoBehaviour {
             SpawnCannons();
 
             //Increase number of cannons spawning
-            numCannons += 2;
+            numCannons += 4;
         }
     }
 

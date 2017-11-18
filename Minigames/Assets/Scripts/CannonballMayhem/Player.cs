@@ -46,7 +46,7 @@ public class Player : MonoBehaviour {
 
         isAlive = true;
 
-        speed = 6.0f;
+        speed = 2.5f;
 	}
 	
 	// Update is called once per frame
