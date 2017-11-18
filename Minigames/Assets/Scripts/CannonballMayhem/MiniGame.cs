@@ -68,6 +68,9 @@ public class MiniGame : MonoBehaviour {
         }
 	}
 
+    /// <summary>
+    /// Called when play button is clicked to start the game
+    /// </summary>
     public void StartGame()
     {
         //Mark that the game has started
@@ -83,6 +86,9 @@ public class MiniGame : MonoBehaviour {
         SpawnCannons();
     }
 
+    /// <summary>
+    /// Runs the game
+    /// </summary>
     private void Play()
     {
         //Decrease minigame timer
@@ -107,6 +113,9 @@ public class MiniGame : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    /// Handles switching between game states (UI)
+    /// </summary>
     public void ChangeGameState()
     {
         if (isStarted && !gameOver)
@@ -127,6 +136,9 @@ public class MiniGame : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    /// Displays the winner when the game is over
+    /// </summary>
     public void DisplayWinner()
     {
         for (int i = 0; i < players.Length; i++)
@@ -153,11 +165,17 @@ public class MiniGame : MonoBehaviour {
         winner.text = "It's a Tie!";
     }
 
+    /// <summary>
+    /// Displays game timer
+    /// </summary>
     public void DisplayTimer()
     {
         timer.text = playTimer.ToString("f1") + "s";
     }
 
+    /// <summary>
+    /// Decreases game timer and transitions to game over state
+    /// </summary>
     private void DecreaseTimer()
     {
         //Decrease minigame timer
@@ -176,6 +194,9 @@ public class MiniGame : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    /// Spawns both of the players in the scene
+    /// </summary>
     private void SpawnPlayers()
     {
         //Get the collider that represents the bounds that players can spawn in
@@ -202,6 +223,9 @@ public class MiniGame : MonoBehaviour {
 
     }
 
+    /// <summary>
+    /// Spawns cannons in the scene.
+    /// </summary>
     private void SpawnCannons()
     {
         for (int i = 0; i < numCannons; i++)
@@ -239,18 +263,8 @@ public class MiniGame : MonoBehaviour {
             //Set position vector
             Vector3 pos = new Vector3(x, y, z);
 
-            //Get a random index in the players array
-            //int randIndex = Random.Range(0, 2);
-
-            //Set vector to player
-            //Vector3 toPlayer = players[randIndex].transform.position - pos;
-
             //Create cannon
             Instantiate(cannonPrefab, pos, Quaternion.identity);
-            //GameObject cannon = Instantiate(cannonPrefab, pos, Quaternion.identity);
-
-            //Set the right in the direction of the player (movement is with right vector, not forward vector)
-            //cannon.transform.right = toPlayer.normalized;
         }
     }
 }

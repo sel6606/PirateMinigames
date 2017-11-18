@@ -16,6 +16,10 @@ public class Cannonball : MonoBehaviour {
         Move();
 	}
 
+    /// <summary>
+    /// Destroys cannonball once moved off screen
+    /// </summary>
+    /// <param name="collision"></param>
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.transform.tag == "Board")
@@ -24,6 +28,9 @@ public class Cannonball : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    /// Move across the screen
+    /// </summary>
     private void Move()
     {
         transform.position += transform.right * speed * Time.deltaTime;

@@ -26,6 +26,7 @@ public class Player : MonoBehaviour {
 	void Start () {
         game = GameObject.Find("MiniGameManager").GetComponent<MiniGame>();
 
+        //Set Player1 controls
         if (gameObject.tag == "Player1")
         {
             left = KeyCode.A;
@@ -33,6 +34,8 @@ public class Player : MonoBehaviour {
             up = KeyCode.W;
             down = KeyCode.S;
         }
+
+        //Set Player2 controls
         else
         {
             left = KeyCode.LeftArrow;
@@ -54,6 +57,11 @@ public class Player : MonoBehaviour {
         }
 	}
 
+    /// <summary>
+    /// Removes player and transitions to game over when
+    /// collided with a cannonball
+    /// </summary>
+    /// <param name="collision"></param>
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.transform.tag == "Cannonball")
@@ -81,46 +89,60 @@ public class Player : MonoBehaviour {
         }
     }
     
-
+    /// <summary>
+    /// Handles player input for movement.
+    /// </summary>
     private void ProcessInput()
     {
+        //Up
         if (Input.GetKey(up))
         {
+            //Change vector for movement
             if (transform.right.y < 0.9)
             {
                 transform.right = transform.up;
             }
 
+            //Move
             transform.position += transform.right * speed * Time.deltaTime;
         }
 
+        //Down
         else if (Input.GetKey(down))
         {
+            //Change vector for movement
             if (transform.right.y > -0.9)
             {
                 transform.right = -transform.up;
             }
 
+            //Move
             transform.position += transform.right * speed * Time.deltaTime;
         }
 
+        //Right
         else if (Input.GetKey(right))
         {
+            //Change vector for movement
             if (transform.right.x > -0.9)
             {
                 transform.right = new Vector3(-1,0,0);
             }
 
+            //Move
             transform.position += transform.right * speed * Time.deltaTime;
         }
 
+        //Left
         else if (Input.GetKey(left))
         {
+            //Change vector for movement
             if (transform.right.x < 0.9)
             {
                 transform.right = new Vector3(1,0,0);
             }
 
+            //Move
             transform.position += transform.right * speed * Time.deltaTime;
         }
     }

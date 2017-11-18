@@ -25,6 +25,7 @@ public class Cannon : MonoBehaviour {
         onScreen = false;
 	}
 
+    //Fires cannonball when moved on screen
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.transform.tag == "Entry")
@@ -34,6 +35,7 @@ public class Cannon : MonoBehaviour {
         }
     }
 
+    //Destroys cannon when moved off screen
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.transform.tag == "Board")
@@ -90,18 +92,27 @@ public class Cannon : MonoBehaviour {
         }
 	}
 
+    /// <summary>
+    /// Moves cannon on screen
+    /// </summary>
     private void MoveOnScreen()
     {
         //Move forward
         transform.position += transform.right * speed * Time.deltaTime;
     }
 
+    /// <summary>
+    /// Moves cannon off screen
+    /// </summary>
     private void MoveOffScreen()
     {
         //Move backward
         transform.position += -transform.right * speed * Time.deltaTime;
     }
 
+    /// <summary>
+    /// Fires a cannonball from the cannon
+    /// </summary>
     private void Fire()
     {
         //Spawn cannonball
