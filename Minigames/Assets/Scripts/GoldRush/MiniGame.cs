@@ -175,19 +175,19 @@ public class MiniGame : MonoBehaviour {
             }
             else if (score <= 40)
             {
-                gold = 2;
+                gold = 1;
             }
             else if (score <= 70)
             {
-                gold = 4;
+                gold = 2;
             }
             else if (score <= 90)
             {
-                gold = 6;
+                gold = 3;
             }
             else
             {
-                gold = 8;
+                gold = 5;
             }
 
             //Hide the game screen
