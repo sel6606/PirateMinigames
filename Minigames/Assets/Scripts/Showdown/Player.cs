@@ -17,10 +17,6 @@ public class Player : MonoBehaviour {
 	void Start () {
         health = 1;
         speed = 4.0f;
-        if (this.gameObject.name == "PlayerTwo")
-        {
-            transform.right = new Vector3(-1, 0, 0);
-        }
 	}
 	
 	// Update is called once per frame
@@ -36,16 +32,17 @@ public class Player : MonoBehaviour {
             //move up
             if (Input.GetKey(KeyCode.W))
             {
-                transform.right = new Vector3(1, 0, 0);
+                transform.eulerAngles = Vector3.zero;
                 transform.position += transform.up * speed * Time.deltaTime;
             }
             //move down
             if (Input.GetKey(KeyCode.S))
             {
-                transform.right = new Vector3(-1, 0, 0);
-                transform.position -= transform.up * speed * Time.deltaTime;
+                //transform.right = new Vector3(-1, 0, 0);
+                transform.eulerAngles = new Vector3(180, 0, 0);
+                transform.position += transform.up * speed * Time.deltaTime;
             }
-            //move left
+            /*move left
             if (Input.GetKey(KeyCode.A))
             {
                 transform.right = new Vector3(-1, 0, 0);
@@ -56,23 +53,23 @@ public class Player : MonoBehaviour {
             {
                 transform.right = new Vector3(1, 0, 0);
                 transform.position += transform.right * speed * Time.deltaTime;
-            }
+            }*/
         }
         if (this.gameObject.name == "PlayerTwo")
         {
             //move up
             if (Input.GetKey(KeyCode.UpArrow))
             {
-                transform.right = new Vector3(1, 0, 0);
+                transform.eulerAngles = Vector3.zero;
                 transform.position += transform.up * speed * Time.deltaTime;
             }
             //move down
             if (Input.GetKey(KeyCode.DownArrow))
             {
-                transform.right = new Vector3(-1, 0, 0);
-                transform.position -= transform.up * speed * Time.deltaTime;
+                transform.eulerAngles = new Vector3(180, 0, 0);
+                transform.position += transform.up * speed * Time.deltaTime;
             }
-            //move left
+            /*move left
             if (Input.GetKey(KeyCode.LeftArrow))
             {
                 transform.right = new Vector3(-1, 0, 0);
@@ -83,7 +80,12 @@ public class Player : MonoBehaviour {
             {
                 transform.right = new Vector3(1, 0, 0);
                 transform.position += transform.right * speed * Time.deltaTime;
-            }
+            }*/
         }
+    }
+
+    public void OnTriggerEnter2D(Collider2D collision)
+    {
+        
     }
 }
