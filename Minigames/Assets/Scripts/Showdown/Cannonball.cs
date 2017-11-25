@@ -10,7 +10,7 @@ public class Cannonball : MonoBehaviour {
     
 	// Use this for initialization
 	void Start () {
-        speed = 3.0f;
+        speed = 4.0f;
 	}
 	
 	// Update is called once per frame

@@ -12,6 +12,9 @@ public class Showdown : MonoBehaviour {
     private bool gameover;
 
     public Text gameOverText;
+    public Text oneHealth;
+    public Text twoHealth;
+
     public GameObject pOne;
     public GameObject pTwo;
 
@@ -34,7 +37,7 @@ public class Showdown : MonoBehaviour {
         if (gameover != true)
         {
             SpawnCannonballs();
-            CheckHealth();
+            UpdateHealth();
             GameOver();
         }
     }
@@ -55,16 +58,15 @@ public class Showdown : MonoBehaviour {
     {
         if (pOne.GetComponent<Player>().Health == 0)
         {
-            //gameOverText.text = "Player Two Wins!";
+            gameOverText.text = "Player Two Wins!";
             Destroy(pOne);
-            gameover = true;
         }
         else if (pTwo.GetComponent<Player>().Health == 0)
         {
-            //gameOverText.text = "Player One Wins!";
+            gameOverText.text = "Player One Wins!";
             Destroy(pTwo);
-            gameover = true;
         }
+        gameover = true;
         //gameOverText = Instantiate(gameOverText, new Vector3(0, 2, 0), Quaternion.identity);
 
     }
@@ -87,8 +89,10 @@ public class Showdown : MonoBehaviour {
             ball.GetComponent<Cannonball>().direction = 0;
         }
     }
-    public void CheckHealth()
+
+    public void UpdateHealth()
     {
-        
+        oneHealth.text = "Health: " + pOne.GetComponent<Player>().Health;
+        twoHealth.text = "Health: " + pTwo.GetComponent<Player>().Health;
     }
 }

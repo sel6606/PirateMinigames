@@ -15,7 +15,7 @@ public class Player : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        health = 1;
+        health = 3;
         speed = 4.0f;
 	}
 	
@@ -24,23 +24,24 @@ public class Player : MonoBehaviour {
         Move();
 	}
 
-    //moves the players in the four cardinal directions
+    //moves the players up and down (uncomment code to allow left and right movement)
     public void Move()
     {
+        //movement for player one (left side)
         if (this.gameObject.name == "PlayerOne")
         {
             //move up
             if (Input.GetKey(KeyCode.W))
             {
-                transform.eulerAngles = Vector3.zero;
-                transform.position += transform.up * speed * Time.deltaTime;
+                transform.eulerAngles = new Vector3(180, 0, 0);
+                transform.position -= transform.up * speed * Time.deltaTime;
             }
             //move down
             if (Input.GetKey(KeyCode.S))
             {
                 //transform.right = new Vector3(-1, 0, 0);
-                transform.eulerAngles = new Vector3(180, 0, 0);
-                transform.position += transform.up * speed * Time.deltaTime;
+                transform.eulerAngles = Vector3.zero;
+                transform.position -= transform.up * speed * Time.deltaTime;
             }
             /*move left
             if (Input.GetKey(KeyCode.A))
@@ -55,19 +56,20 @@ public class Player : MonoBehaviour {
                 transform.position += transform.right * speed * Time.deltaTime;
             }*/
         }
+        //movement for player two (right side)
         if (this.gameObject.name == "PlayerTwo")
         {
             //move up
             if (Input.GetKey(KeyCode.UpArrow))
             {
-                transform.eulerAngles = Vector3.zero;
-                transform.position += transform.up * speed * Time.deltaTime;
+                transform.eulerAngles = new Vector3(180, 0, 0);
+                transform.position -= transform.up * speed * Time.deltaTime;
             }
             //move down
             if (Input.GetKey(KeyCode.DownArrow))
             {
-                transform.eulerAngles = new Vector3(180, 0, 0);
-                transform.position += transform.up * speed * Time.deltaTime;
+                transform.eulerAngles = Vector3.zero;
+                transform.position -= transform.up * speed * Time.deltaTime;
             }
             /*move left
             if (Input.GetKey(KeyCode.LeftArrow))
@@ -96,12 +98,14 @@ public class Player : MonoBehaviour {
             {
                 this.health--;
                 Debug.Log("player two hit!");
+                Destroy(collision.gameObject);
             }
             //reduce player one's health if the cannonball was fired by player two and collides with player one
             if (collision.gameObject.GetComponent<Cannonball>().direction == 0 && this.gameObject.name == "PlayerOne")
             {
                 this.health--;
                 Debug.Log("player one hit!");
+                Destroy(collision.gameObject);
             }
         }
 
