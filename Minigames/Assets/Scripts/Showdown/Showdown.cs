@@ -55,15 +55,18 @@ public class Showdown : MonoBehaviour {
     {
         if (pOne.GetComponent<Player>().Health == 0)
         {
-            gameOverText.text = "Player Two Wins!";
+            //gameOverText.text = "Player Two Wins!";
+            Destroy(pOne);
             gameover = true;
         }
         else if (pTwo.GetComponent<Player>().Health == 0)
         {
-            gameOverText.text = "Player One Wins!";
+            //gameOverText.text = "Player One Wins!";
+            Destroy(pTwo);
             gameover = true;
         }
         //gameOverText = Instantiate(gameOverText, new Vector3(0, 2, 0), Quaternion.identity);
+
     }
 
     //spawns cannonballs on-screen

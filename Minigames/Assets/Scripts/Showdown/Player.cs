@@ -84,8 +84,27 @@ public class Player : MonoBehaviour {
         }
     }
 
+    //checks if the player collides with a cannonball or the border of the screen
     public void OnTriggerEnter2D(Collider2D collision)
     {
-        
+        //if the player collides with a cannonball...
+        if (collision.gameObject.tag == "cannonball")
+        {
+            Debug.Log("collision!");
+            //reduce pleyer two's health if the cannonball was fired by player one and collides with player two
+            if (collision.gameObject.GetComponent<Cannonball>().direction == 1 && this.gameObject.name == "PlayerTwo")
+            {
+                this.health--;
+                Debug.Log("player two hit!");
+            }
+            //reduce player one's health if the cannonball was fired by player two and collides with player one
+            if (collision.gameObject.GetComponent<Cannonball>().direction == 0 && this.gameObject.name == "PlayerOne")
+            {
+                this.health--;
+                Debug.Log("player one hit!");
+            }
+        }
+
+        //if the player collides with the borders of the screen
     }
 }

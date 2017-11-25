@@ -292,7 +292,9 @@ MonoBehaviour:
   gameOverText: {fileID: 0}
   pOne: {fileID: 0}
   pTwo: {fileID: 0}
-  playerSprite: {fileID: 1277176483522432, guid: 4b8d2f00b5dd193448c23cb9479f3bf0,
+  playerOneSprite: {fileID: 1689360820352170, guid: f358335f64536d14081394564041951d,
+    type: 2}
+  playerTwoSprite: {fileID: 1671486248401740, guid: 5245552cdd5e698418ffdeead717bc41,
     type: 2}
   cannonballSprite: {fileID: 1299852297552080, guid: c444fcc74715657439909f826eede729,
     type: 2}
