@@ -60,13 +60,14 @@ public class Showdown : MonoBehaviour {
         {
             gameOverText.text = "Player Two Wins!";
             Destroy(pOne);
+            gameover = true;
         }
         else if (pTwo.GetComponent<Player>().Health == 0)
         {
             gameOverText.text = "Player One Wins!";
             Destroy(pTwo);
+            gameover = true;
         }
-        gameover = true;
         //gameOverText = Instantiate(gameOverText, new Vector3(0, 2, 0), Quaternion.identity);
 
     }
@@ -77,6 +78,7 @@ public class Showdown : MonoBehaviour {
         //spawn a cannonball if player one is pressing space
         if (Input.GetKeyDown(KeyCode.Space))
         {
+            
             GameObject ball = Instantiate(cannonballSprite, pOne.transform.position, Quaternion.identity);
             ball.AddComponent<Cannonball>();
             ball.GetComponent<Cannonball>().direction = 1;

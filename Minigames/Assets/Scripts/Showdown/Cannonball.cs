@@ -16,6 +16,7 @@ public class Cannonball : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         Move();
+        CheckScreenBounds();
 	}
 
     public void Move()
@@ -31,6 +32,19 @@ public class Cannonball : MonoBehaviour {
         {
             transform.right = new Vector3(1, 0, 0);
             transform.position += transform.right * speed * Time.deltaTime;
+        }
+    }
+
+    public void CheckScreenBounds()
+    {
+        Vector3 pos = Camera.main.WorldToViewportPoint(transform.position);
+        if (pos.x < 0.0)
+        {
+            Destroy(this.gameObject);
+        }
+        if (1.0 < pos.x)
+        {
+            Destroy(this.gameObject);
         }
     }
 }
