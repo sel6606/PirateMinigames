@@ -4,4 +4,10 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/ShowdownIntro.unity
+    guid: 2441bfaeba112b642a6e207ce3f19ced
+  - enabled: 1
+    path: Assets/Scenes/ShowdownMain.unity
+    guid: 35a0055ad570a464d87044076ed5875d

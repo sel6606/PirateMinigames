@@ -5,10 +5,6 @@ using UnityEngine.UI;
 
 public class Showdown : MonoBehaviour {
 
-    public GameObject instructionScreen;
-    public GameObject gameScreen;
-    public GameObject gameOver;
-
     private bool gameover;
 
     public Text gameOverText;
@@ -24,12 +20,8 @@ public class Showdown : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        //instructionScreen.SetActive(false);
-        //gameOver.SetActive(false);
-        //gameScreen.SetActive(true);
         gameover = false;
         SpawnPlayers();
-        
 	}
 	
 	// Update is called once per frame
@@ -92,6 +84,7 @@ public class Showdown : MonoBehaviour {
         }
     }
 
+    //updates UI for each player's health
     public void UpdateHealth()
     {
         oneHealth.text = "Health: " + pOne.GetComponent<Player>().Health;
