@@ -84,6 +84,7 @@
     <Compile Include="Assets\Scripts\CannonballMayhem\Player.cs" />
     <Compile Include="Assets\Scripts\Interface Scripts\PortData.cs" />
     <Compile Include="Assets\Scripts\Interface Scripts\ShipData.cs" />
+    <Compile Include="Assets\Scripts\PlayerInfo.cs" />
     <Compile Include="Assets\Scripts\Word Game Scripts\Timer.cs" />
     <Compile Include="Assets\Scripts\Word Game Scripts\WordBank.cs" />
   </ItemGroup>
