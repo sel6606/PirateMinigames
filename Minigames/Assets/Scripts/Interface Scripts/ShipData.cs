@@ -9,7 +9,11 @@ using UnityEngine;
 public struct ShipData
 {
     public string name;
+
+    //Clamp gold amount between 0 and 9
+    [Range(0, 9)]
     public int goldAmount;
+
     public bool isFlagship;
 
     /// <summary>

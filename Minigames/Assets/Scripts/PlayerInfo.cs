@@ -2,11 +2,24 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Script to keep track of various game information required between multiple scenes
+/// </summary>
 public class PlayerInfo : MonoBehaviour
 {
 
     //Represents the game info that is stored across all scenes
     public static PlayerInfo instance;
+
+    /// <summary>
+    /// The list of ships that the first player starts the game with
+    /// </summary>
+    public List<ShipData> startingShipsP1;
+
+    /// <summary>
+    /// The list of ships that the second player starts the game with
+    /// </summary>
+    public List<ShipData> startingShipsP2;
 
     #region Class Variables
     private List<ShipData> shipsP1;
@@ -41,6 +54,9 @@ public class PlayerInfo : MonoBehaviour
         {
             //Object this is attached to will be preserved between scenes
             DontDestroyOnLoad(gameObject);
+
+            shipsP1 = startingShipsP1;
+            shipsP2 = startingShipsP2;
 
             instance = this;
         }
