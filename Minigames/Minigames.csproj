@@ -82,6 +82,15 @@
     <Compile Include="Assets\Scripts\CannonballMayhem\Cannonball.cs" />
     <Compile Include="Assets\Scripts\CannonballMayhem\MiniGame.cs" />
     <Compile Include="Assets\Scripts\CannonballMayhem\Player.cs" />
+    <Compile Include="Assets\Scripts\Word Game Scripts\Timer.cs" />
+    <Compile Include="Assets\Scripts\Word Game Scripts\WordBank.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\Text Files\Famous Pirates.txt" />
+    <None Include="Assets\Text Files\Island Nations.txt" />
+    <None Include="Assets\Text Files\Pirate Weapons.txt" />
+    <None Include="Assets\Text Files\Precious and Semi-Precious Gems.txt" />
+    <None Include="Assets\Text Files\Sailing Ship Types.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />
