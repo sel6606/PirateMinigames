@@ -47,7 +47,7 @@ public class MiniGame : MonoBehaviour {
         score = 0;
         gold = 0;
 
-        numCoins = 8;
+        numCoins = 6;
 
         spawnTime = 0.3f;
         spawnTimer = spawnTime;
@@ -159,15 +159,15 @@ public class MiniGame : MonoBehaviour {
             spawnTimer = spawnTime;
 
             //Spawn coins
-            SpawnCoins();
+            SpawnCoinInterval();
 
             //Increase spawn counter
             spawnCounter++;
 
-            if (spawnCounter == 9)
+            if (spawnCounter == 4)
             {
                 //Spawn bill
-                SpawnBill();
+                SpawnBillInterval();
 
                 //Reset counter
                 spawnCounter = 0;
@@ -200,25 +200,25 @@ public class MiniGame : MonoBehaviour {
             gameOver = true;
 
             //Set the amount of gold that the player won
-            if (score <= 10)
+            if (score < 30)
             {
                 gold = 0;
             }
-            else if (score <= 40)
+            else if (score < 60)
             {
                 gold = 1;
             }
-            else if (score <= 70)
+            else if (score < 90)
             {
                 gold = 2;
             }
-            else if (score <= 90)
+            else if (score < 120)
             {
                 gold = 3;
             }
             else
             {
-                gold = 5;
+                gold = 4;
             }
 
             //Hide the game screen
@@ -228,7 +228,7 @@ public class MiniGame : MonoBehaviour {
             gameOverScreen.SetActive(true);
 
             //Show how much gold the player won
-            goldUI.text = "Your final score was " + score.ToString() + "\n";
+            goldUI.text = "Your colllected " + score.ToString() + " silver coins" + "\n";
             goldUI.text += "Congratulations, you won " + gold.ToString() + " gold";
         }
     }
@@ -238,7 +238,7 @@ public class MiniGame : MonoBehaviour {
     /// </summary>
     private void SpawnCoins()
     {
-        for (int i = 0; i < numCoins; i++)
+        for (int i = 0; i < 1; i++)
         {
             //Get top of the background
             float top = background.transform.position.y + background.transform.localScale.y;
@@ -258,9 +258,21 @@ public class MiniGame : MonoBehaviour {
         }
     }
 
+    private void SpawnCoinInterval()
+    {
+        float time = 1.0f;
+
+        for (int i = 0; i < numCoins; i++)
+        {
+            Invoke("SpawnCoins", time);
+
+            time += 0.7f;
+        }
+    }
+
     private void SpawnBill()
     {
-        for (int i = 0; i < 4; i++)
+        for (int i = 0; i < 1; i++)
         {
             //Get top of the background
             float top = background.transform.position.y + background.transform.localScale.y;
@@ -277,6 +289,18 @@ public class MiniGame : MonoBehaviour {
 
             //Set reference to minigame script
             bill.GetComponent<Bill>().Game = this;
+        }
+    }
+
+    private void SpawnBillInterval()
+    {
+        float time = 1.0f;
+
+        for (int i = 0; i < 5; i++)
+        {
+            Invoke("SpawnBill", time);
+
+            time += 0.3f;
         }
     }
 
