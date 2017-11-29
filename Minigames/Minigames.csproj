@@ -78,7 +78,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\GoldRush\Bill.cs" />
     <Compile Include="Assets\Scripts\GoldRush\Coin.cs" />
+    <Compile Include="Assets\Scripts\GoldRush\Hat.cs" />
     <Compile Include="Assets\Scripts\GoldRush\MiniGame.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

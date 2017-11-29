@@ -16,7 +16,9 @@ public class MiniGame : MonoBehaviour {
     //Game Components
     public GameObject background;
     public GameObject boardCollider;
-
+    public GameObject hat;
+    public GameObject hatPrefab;
+    public GameObject billPrefab;
     public GameObject coinPrefab;
 
     //Game Variables
@@ -27,6 +29,7 @@ public class MiniGame : MonoBehaviour {
 
     private float spawnTime;
     private float spawnTimer;
+    private int spawnCounter;
 
     private float gameTimer;
 
@@ -48,6 +51,7 @@ public class MiniGame : MonoBehaviour {
 
         spawnTime = 0.3f;
         spawnTimer = spawnTime;
+        spawnCounter = 0;
 
         gameTimer = 30.0f;
 
@@ -102,6 +106,12 @@ public class MiniGame : MonoBehaviour {
         //Make sure the collider is wide enough to account for all aspect ratios
         //This ensures that the coins will always enter and exit the board collider during mid-game resizing
         boardCollider.transform.localScale = new Vector3(xDistance * 50.0f, yDistance * 2.0f, boardCollider.transform.localScale.z);
+
+        //Make sure the hat remains on the screen
+        if (hat != null)
+        {
+            hat.transform.position = new Vector3(hat.transform.position.x, background.transform.position.y - background.transform.localScale.y / 2.0f, 1.0f);
+        }
     }
 
     /// <summary>
@@ -118,6 +128,9 @@ public class MiniGame : MonoBehaviour {
 
         //Show the game screen
         gameScreen.SetActive(true);
+
+        //Spawn the hat
+        hat = Instantiate(hatPrefab, new Vector3(0.0f, background.transform.position.y - background.transform.localScale.y / 2.0f, 1.0f), Quaternion.identity);
     }
 
     /// <summary>
@@ -127,6 +140,12 @@ public class MiniGame : MonoBehaviour {
     {
         //Decrease game timer
         DecreaseTimer();
+
+        //Clamp score
+        if (score < 0)
+        {
+            score = 0;
+        }
 
         //Update UI display
         UpdateUI();
@@ -141,6 +160,18 @@ public class MiniGame : MonoBehaviour {
 
             //Spawn coins
             SpawnCoins();
+
+            //Increase spawn counter
+            spawnCounter++;
+
+            if (spawnCounter == 9)
+            {
+                //Spawn bill
+                SpawnBill();
+
+                //Reset counter
+                spawnCounter = 0;
+            }
         }
     }
 
@@ -224,6 +255,28 @@ public class MiniGame : MonoBehaviour {
 
             //Set reference to minigame script
             coin.GetComponent<Coin>().Game = this;
+        }
+    }
+
+    private void SpawnBill()
+    {
+        for (int i = 0; i < 4; i++)
+        {
+            //Get top of the background
+            float top = background.transform.position.y + background.transform.localScale.y;
+
+            //Set height offset to spawn the bill slightly above the background
+            float offset = 1.0f;
+
+            //Get a random position along the background's width
+            float x = Random.Range(background.transform.position.x - background.transform.localScale.x / 2.0f + 1.0f, background.transform.position.x + background.transform.localScale.x / 2.0f - 1.0f);
+
+            //Spawn the bill
+            //Note: Spawn at z = 1.0f because all 2D gameobjects will be moving on z = 1.0f
+            GameObject bill = Instantiate(billPrefab, new Vector3(x, top + offset, 1.0f), Quaternion.identity);
+
+            //Set reference to minigame script
+            bill.GetComponent<Bill>().Game = this;
         }
     }
 

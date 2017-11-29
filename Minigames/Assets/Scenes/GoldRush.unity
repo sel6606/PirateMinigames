@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44589454, g: 0.49563247, b: 0.57437736, a: 1}
+  m_IndirectSpecularColor: {r: 0.4458946, g: 0.49563247, b: 0.5743775, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -156,6 +156,9 @@ MonoBehaviour:
   goldUI: {fileID: 1911167359}
   background: {fileID: 1370985583}
   boardCollider: {fileID: 1756083355}
+  hat: {fileID: 0}
+  hatPrefab: {fileID: 1865453751266116, guid: 8024e8c6fd67bbc4d8cbfcd255e8e67a, type: 2}
+  billPrefab: {fileID: 1091880842110810, guid: eebb9217cc185c5459fd02fa271a3d80, type: 2}
   coinPrefab: {fileID: 1838957224497754, guid: 5ce25b606fa2fac42a92982ea2fac610, type: 2}
 --- !u!1 &610114825
 GameObject:
@@ -1345,7 +1348,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: Gold Rush
+  m_Text: Silver Rush
 --- !u!222 &1667956893
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1811,7 +1814,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1.5
-  m_Text: 'Ahoy! Your pirate crew found a bounty of gold coins!
+  m_Text: 'Ahoy! Your pirate crew found a bounty of silver coins!
 
     Click on a coin to collect it and increase your score.
 
