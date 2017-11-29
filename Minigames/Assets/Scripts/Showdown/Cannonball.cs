@@ -5,8 +5,7 @@ using UnityEngine;
 public class Cannonball : MonoBehaviour {
 
     public float speed;
-    public int direction;
-    public string owner;
+    public int owner;
     
 	// Use this for initialization
 	void Start () {
@@ -21,18 +20,7 @@ public class Cannonball : MonoBehaviour {
 
     public void Move()
     {
-        //move left
-        if (direction == 0)
-        {
-            transform.right = new Vector3(-1, 0, 0);
-            transform.position += transform.right * speed * Time.deltaTime;
-        }
-        //move right
-        else
-        {
-            transform.right = new Vector3(1, 0, 0);
-            transform.position += transform.right * speed * Time.deltaTime;
-        }
+        transform.position += transform.right * speed * Time.deltaTime;
     }
 
     public void CheckScreenBounds()
