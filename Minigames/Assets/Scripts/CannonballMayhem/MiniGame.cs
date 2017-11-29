@@ -9,7 +9,6 @@ public class MiniGame : MonoBehaviour {
     public GameObject startScreen;
     public GameObject gamePlayScreen;
     public GameObject gameOverScreen;
-    public Text timer;
     public Text winner;
 
     //GameObjects in scene
@@ -23,15 +22,13 @@ public class MiniGame : MonoBehaviour {
     public GameObject[] playerPrefabs;
     public GameObject[] players;
 
-    //Duration of the game
-    private float playTimer;
-
     //Spawn intervals of cannons
     private float spawnTime;
     private float spawnTimer;
 
     //Numbers of cannons spawning
     private int numCannons;
+    private int maxCannons;
 
     //Gamestates
     private bool isStarted;
@@ -44,22 +41,17 @@ public class MiniGame : MonoBehaviour {
         set { gameOver = value; }
     }
 
-    public float PlayTimer
-    {
-        get { return playTimer; }
-    }
     #endregion
 
     // Use this for initialization
     void Start () {
         players = new GameObject[2];
 
-        playTimer = 30.0f;
-
         spawnTime = 4.0f;
         spawnTimer = spawnTime;
 
         numCannons = 2;
+        maxCannons = 24;
 
         isStarted = false;
         gameOver = false;
@@ -209,12 +201,6 @@ public class MiniGame : MonoBehaviour {
     /// </summary>
     private void Play()
     {
-        //Decrease minigame timer
-        DecreaseTimer();
-
-        //Display the minigame timer
-        DisplayTimer();
-
         //Decrease time to spawn cannon
         spawnTimer -= Time.deltaTime;
 
@@ -228,6 +214,12 @@ public class MiniGame : MonoBehaviour {
 
             //Increase number of cannons spawning
             numCannons += 4;
+
+            //Clamp numCannons
+            if (numCannons >= maxCannons)
+            {
+                numCannons = maxCannons;
+            }
         }
     }
 
@@ -281,35 +273,6 @@ public class MiniGame : MonoBehaviour {
         }
 
         winner.text = "It's a Tie!";
-    }
-
-    /// <summary>
-    /// Displays game timer
-    /// </summary>
-    public void DisplayTimer()
-    {
-        timer.text = playTimer.ToString("f1") + "s";
-    }
-
-    /// <summary>
-    /// Decreases game timer and transitions to game over state
-    /// </summary>
-    private void DecreaseTimer()
-    {
-        //Decrease minigame timer
-        playTimer -= Time.deltaTime;
-
-        if (playTimer <= 0)
-        {
-            //Mark that the game ended
-            gameOver = true;
-
-            //Switch to the game over game state
-            ChangeGameState();
-
-            //Set the winner of the game
-            DisplayWinner();
-        }
     }
 
     /// <summary>
