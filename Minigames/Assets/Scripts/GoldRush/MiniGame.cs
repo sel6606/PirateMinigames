@@ -16,6 +16,7 @@ public class MiniGame : MonoBehaviour {
     //Game Components
     public GameObject background;
     public GameObject boardCollider;
+    public GameObject[] bounds;
     public GameObject hat;
     public GameObject hatPrefab;
     public GameObject billPrefab;
@@ -106,6 +107,24 @@ public class MiniGame : MonoBehaviour {
         //Make sure the collider is wide enough to account for all aspect ratios
         //This ensures that the coins will always enter and exit the board collider during mid-game resizing
         boardCollider.transform.localScale = new Vector3(xDistance * 50.0f, yDistance * 2.0f, boardCollider.transform.localScale.z);
+
+        //Make sure the bounds stay on the side of the board
+        for (int i = 0; i < bounds.Length; i++)
+        {
+            //Left Bounds
+            if (i == 0)
+            {
+                bounds[i].transform.position = new Vector3(background.transform.position.x + xDistance, 0.0f, 1.0f);
+            }
+
+            //Right Bounds
+            else
+            {
+                bounds[i].transform.position = new Vector3(background.transform.position.x - xDistance, 0.0f, 1.0f);
+            }
+
+            bounds[i].transform.localScale = new Vector3(0.5f, background.transform.localScale.y, 1.0f);
+        }
 
         //Make sure the hat remains on the screen
         if (hat != null)
