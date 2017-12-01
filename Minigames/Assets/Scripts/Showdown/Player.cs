@@ -18,7 +18,7 @@ public class Player : MonoBehaviour {
 	void Start () {
         game = GameObject.Find("GameManager").GetComponent<Showdown>();
         health = 3;
-        speed = 4.0f;
+        speed = 2.5f;
 	}
 	
 	// Update is called once per frame
@@ -31,65 +31,56 @@ public class Player : MonoBehaviour {
         }
 	}
 
-    //moves the players up and down (uncomment code to allow left and right movement)
+    //moves the players up and down (uncomment code to allow backwards movement
     public void Move()
     {
         //movement for player one (left side)
         if (this.gameObject.name == "PlayerOne")
         {
-            //move up
+            //move forward
             if (Input.GetKey(KeyCode.W))
             {
-                transform.eulerAngles = new Vector3(180, 0, 0);
                 transform.position -= transform.up * speed * Time.deltaTime;
             }
-            //move down
-            if (Input.GetKey(KeyCode.S))
+            //move backward
+            /*if (Input.GetKey(KeyCode.S))
             {
-                //transform.right = new Vector3(-1, 0, 0);
-                transform.eulerAngles = Vector3.zero;
-                transform.position -= transform.up * speed * Time.deltaTime;
-            }
-            /*move left
+                transform.position += transform.up * speed * Time.deltaTime;
+            }*/
+            //turn left
             if (Input.GetKey(KeyCode.A))
             {
-                transform.right = new Vector3(-1, 0, 0);
-                transform.position += transform.right * speed * Time.deltaTime;
+                transform.eulerAngles += new Vector3(0, 0, 1);
             }
-            //move right
+            //turn right
             if (Input.GetKey(KeyCode.D))
             {
-                transform.right = new Vector3(1, 0, 0);
-                transform.position += transform.right * speed * Time.deltaTime;
-            }*/
+                transform.eulerAngles -= new Vector3(0, 0, 1);
+            }
         }
         //movement for player two (right side)
         if (this.gameObject.name == "PlayerTwo")
         {
-            //move up
+            //move forward
             if (Input.GetKey(KeyCode.UpArrow))
             {
-                transform.eulerAngles = new Vector3(180, 0, 0);
                 transform.position -= transform.up * speed * Time.deltaTime;
             }
-            //move down
+            /*move backward
             if (Input.GetKey(KeyCode.DownArrow))
             {
-                transform.eulerAngles = Vector3.zero;
-                transform.position -= transform.up * speed * Time.deltaTime;
-            }
-            /*move left
+                transform.position += transform.up * speed * Time.deltaTime;
+            }*/
+            //turn left
             if (Input.GetKey(KeyCode.LeftArrow))
             {
-                transform.right = new Vector3(-1, 0, 0);
-                transform.position += transform.right * speed * Time.deltaTime;
+                transform.eulerAngles += new Vector3(0, 0, 1);
             }
-            //move right
+            //turn right
             if (Input.GetKey(KeyCode.RightArrow))
             {
-                transform.right = new Vector3(1, 0, 0);
-                transform.position += transform.right * speed * Time.deltaTime;
-            }*/
+                transform.eulerAngles -= new Vector3(0, 0, 1);
+            }
         }
     }
 
@@ -102,7 +93,7 @@ public class Player : MonoBehaviour {
             GameObject ball = Instantiate(game.cannonballSprite, transform.position, Quaternion.identity);
             ball.AddComponent<Cannonball>();
             ball.GetComponent<Cannonball>().owner = 1;
-            ball.transform.right = this.transform.right;
+            ball.transform.right = -(this.transform.right);
         }
         //spawn a cannonball on the left if player one is pressing 'Q'
         if (Input.GetKeyDown(KeyCode.Q) && this.gameObject.name == "PlayerOne")
@@ -110,7 +101,7 @@ public class Player : MonoBehaviour {
             GameObject ball = Instantiate(game.cannonballSprite, transform.position, Quaternion.identity);
             ball.AddComponent<Cannonball>();
             ball.GetComponent<Cannonball>().owner = 1;
-            ball.transform.right = -(this.transform.right);
+            ball.transform.right = this.transform.right;
         }
         //spawn a cannonball on the right if player two is pressing '3' on the keypad
         if (Input.GetKeyDown(KeyCode.Keypad3) && this.gameObject.name == "PlayerTwo")
@@ -118,7 +109,7 @@ public class Player : MonoBehaviour {
             GameObject ball = Instantiate(game.cannonballSprite, transform.position, Quaternion.identity);
             ball.AddComponent<Cannonball>();
             ball.GetComponent<Cannonball>().owner = 2;
-            ball.transform.right = this.transform.right;
+            ball.transform.right = -(this.transform.right);
         }
         //spawn a cannonball on the left if player two is pressing '1' on the keypad
         if (Input.GetKeyDown(KeyCode.Keypad1) && this.gameObject.name == "PlayerTwo")
@@ -126,7 +117,7 @@ public class Player : MonoBehaviour {
             GameObject ball = Instantiate(game.cannonballSprite, transform.position, Quaternion.identity);
             ball.AddComponent<Cannonball>();
             ball.GetComponent<Cannonball>().owner = 2;
-            ball.transform.right = -(this.transform.right);
+            ball.transform.right = this.transform.right;
         }
     }
 
@@ -151,16 +142,25 @@ public class Player : MonoBehaviour {
         }
     }
 
+    //wraps the ship to the opposite side of the screen if they go off camera
     public void CheckScreenBounds()
     {
         Vector3 pos = Camera.main.WorldToViewportPoint(transform.position);
         if (pos.y < 0.0)
         {
-            this.gameObject.transform.position = new Vector3(this.gameObject.transform.position.x, pos.y +5f, this.gameObject.transform.position.z);
+            this.gameObject.transform.position = new Vector3(this.gameObject.transform.position.x, pos.y +6f, this.gameObject.transform.position.z);
         }
         if (1.0 < pos.y)
         {
-            this.gameObject.transform.position = new Vector3(this.gameObject.transform.position.x, pos.y -4f, this.gameObject.transform.position.z);
+            this.gameObject.transform.position = new Vector3(this.gameObject.transform.position.x, pos.y -5f, this.gameObject.transform.position.z);
+        }
+        if (pos.x < 0.0)
+        {
+            this.gameObject.transform.position = new Vector3(pos.x + 7f, this.gameObject.transform.position.y, this.gameObject.transform.position.z);
+        }
+        if (1.0 < pos.x)
+        {
+            this.gameObject.transform.position = new Vector3(pos.x - 8f, this.gameObject.transform.position.y, this.gameObject.transform.position.z);
         }
     }
 }
