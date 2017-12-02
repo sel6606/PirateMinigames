@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class MiniGameGoldRush : MonoBehaviour {
+public class SRMiniGame : MonoBehaviour {
 
     //UI Variables
     public GameObject instructionsScreen;
@@ -43,8 +43,9 @@ public class MiniGameGoldRush : MonoBehaviour {
         set { score = value; }
     }
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start()
+    {
         score = 0;
         gold = 0;
 
@@ -58,10 +59,11 @@ public class MiniGameGoldRush : MonoBehaviour {
 
         start = false;
         gameOver = false;
-	}
-	
-	// Update is called once per frame
-	void Update () {
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
         //Resize background if needed
         SetBackgroundToScreen();
 
@@ -70,7 +72,7 @@ public class MiniGameGoldRush : MonoBehaviour {
         {
             Play();
         }
-	}
+    }
 
     /// <summary>
     /// Resizes the background image to fit the screen
@@ -150,6 +152,11 @@ public class MiniGameGoldRush : MonoBehaviour {
 
         //Spawn the hat
         hat = Instantiate(hatPrefab, new Vector3(0.0f, background.transform.position.y - background.transform.localScale.y / 2.0f, 1.0f), Quaternion.identity);
+    }
+
+    public void ExitGame()
+    {
+        //Write code to switch to interface scene
     }
 
     /// <summary>
@@ -273,7 +280,7 @@ public class MiniGameGoldRush : MonoBehaviour {
             GameObject coin = Instantiate(coinPrefab, new Vector3(x, top + offset, 1.0f), Quaternion.identity);
 
             //Set reference to minigame script
-            coin.GetComponent<Coin>().Game = this;
+            coin.GetComponent<SRCoin>().Game = this;
         }
     }
 
@@ -307,7 +314,7 @@ public class MiniGameGoldRush : MonoBehaviour {
             GameObject bill = Instantiate(billPrefab, new Vector3(x, top + offset, 1.0f), Quaternion.identity);
 
             //Set reference to minigame script
-            bill.GetComponent<Bill>().Game = this;
+            bill.GetComponent<SRBill>().Game = this;
         }
     }
 

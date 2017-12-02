@@ -2,33 +2,35 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Coin : MonoBehaviour {
+public class SRBill : MonoBehaviour {
 
-    private MiniGameGoldRush game;
+    private SRMiniGame game;
 
     private float speed;
 
-    public MiniGameGoldRush Game
+    public SRMiniGame Game
     {
         set { game = value; }
     }
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start()
+    {
         speed = 5.0f;
-	}
-	
-	// Update is called once per frame
-	void Update () {
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
         Move();
-	}
+    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.tag == "Hat")
         {
-            //Increase the player's score
-            game.Score++;
+            //Decrease the player's score
+            game.Score -= 10;
 
             //Remove the coin
             Destroy(gameObject);

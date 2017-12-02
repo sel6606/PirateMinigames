@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Bill : MonoBehaviour {
+public class SRCoin : MonoBehaviour {
 
-    private MiniGameGoldRush game;
+    private SRMiniGame game;
 
     private float speed;
 
-    public MiniGameGoldRush Game
+    public SRMiniGame Game
     {
         set { game = value; }
     }
@@ -29,8 +29,8 @@ public class Bill : MonoBehaviour {
     {
         if (collision.tag == "Hat")
         {
-            //Decrease the player's score
-            game.Score -= 10;
+            //Increase the player's score
+            game.Score++;
 
             //Remove the coin
             Destroy(gameObject);
