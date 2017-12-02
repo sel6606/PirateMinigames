@@ -11,8 +11,12 @@ public class SetupInterface : MonoBehaviour
     #region Public Variables
     public RectTransform shipyardP1;
     public RectTransform shipyardP2;
+    public RectTransform draggableArea;
     public GameObject flagshipPrefab;
     public GameObject pirateShipPrefab;
+
+    public List<RectTransform> targetsP1;
+    public List<RectTransform> targetsP2;
     #endregion
 
     // Use this for initialization
@@ -54,7 +58,7 @@ public class SetupInterface : MonoBehaviour
         GameObject temp;
 
         //Determine the rectangle transform to use when initializing
-        if(isPlayer1)
+        if (isPlayer1)
         {
             parentTemp = shipyardP1;
         }
@@ -78,13 +82,22 @@ public class SetupInterface : MonoBehaviour
         }
 
         //If the start gold was not set by the player, use the default gold amount
-        if(startGold < 0)
+        if (startGold < 0)
         {
             startGold = defaultStartGold;
         }
 
+        if (isPlayer1)
+        {
+            temp.GetComponent<DragShips>().possibleTargets = targetsP1;
+        }
+        else
+        {
+            temp.GetComponent<DragShips>().possibleTargets = targetsP2;
+        }
         //Set the text
         temp.GetComponentInChildren<Text>().text = startGold.ToString();
+        temp.GetComponent<DragShips>().draggableArea = draggableArea;
        
     }
 
