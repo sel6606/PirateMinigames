@@ -4,4 +4,13 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/Cannonball Mayhem.unity
+    guid: 661d87f85b936a242bde332042681e86
+  - enabled: 1
+    path: Assets/Scenes/MainScene.unity
+    guid: 35a0055ad570a464d87044076ed5875d
+  - enabled: 1
+    path: Assets/Scenes/WordGame.unity
+    guid: 90721e01691d4664cb09ad424b0c5aad

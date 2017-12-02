@@ -98,6 +98,7 @@ public class SetupInterface : MonoBehaviour
         //Set the text
         temp.GetComponentInChildren<Text>().text = startGold.ToString();
         temp.GetComponent<DragShips>().draggableArea = draggableArea;
+        temp.GetComponent<DragShips>().GoldAmount = startGold;
        
     }
 

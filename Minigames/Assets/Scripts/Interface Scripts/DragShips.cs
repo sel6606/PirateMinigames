@@ -18,7 +18,14 @@ public class DragShips : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
 
     #region Class Variables
     private Transform shipyard;
+    private int goldAmount;
     #endregion
+
+    public int GoldAmount
+    {
+        get { return goldAmount; }
+        set { goldAmount = value; }
+    }
 
     /// <summary>
     /// Function called when the user starts to drag an object
@@ -54,10 +61,20 @@ public class DragShips : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
             //If the object overlaps, set its parent and snap it in place
             if (RectOverlaps((RectTransform)transform, r))
             {
-                transform.SetParent(r);
-                transform.localPosition = new Vector3(0, 0, transform.parent.localPosition.z);
-                r.GetComponentInChildren<Text>().enabled = false;
-                break;
+                if(r.GetComponent<MinigameSelect>().IsSet)
+                {
+                    break;
+                }
+                else
+                {
+                    transform.SetParent(r);
+                    transform.localPosition = new Vector3(0, 0, transform.parent.localPosition.z);
+                    r.GetComponentInChildren<Text>().enabled = false;
+                    r.GetComponent<MinigameSelect>().GoldOnShip = goldAmount;
+                    r.GetComponent<MinigameSelect>().IsSet = true;
+                    break;
+                }
+
             }
         }
 

@@ -83,6 +83,8 @@
     <Compile Include="Assets\Scripts\CannonballMayhem\MiniGame.cs" />
     <Compile Include="Assets\Scripts\CannonballMayhem\Player.cs" />
     <Compile Include="Assets\Scripts\Interface Scripts\DragShips.cs" />
+    <Compile Include="Assets\Scripts\Interface Scripts\MinigameLauncher.cs" />
+    <Compile Include="Assets\Scripts\Interface Scripts\MinigameSelect.cs" />
     <Compile Include="Assets\Scripts\Interface Scripts\PortData.cs" />
     <Compile Include="Assets\Scripts\Interface Scripts\SetupInterface.cs" />
     <Compile Include="Assets\Scripts\Interface Scripts\ShipData.cs" />
