@@ -13,6 +13,7 @@ public class MiniGame : MonoBehaviour {
 
     //GameObjects in scene
     public GameObject background;
+    public GameObject water;
     public GameObject boardCollider;
     public GameObject[] bounds;
 
