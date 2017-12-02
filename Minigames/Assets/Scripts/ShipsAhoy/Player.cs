@@ -8,142 +8,82 @@ public class Player : MonoBehaviour {
 
     public ParticleSystem particles;
 
-    private KeyCode left;
-    private KeyCode right;
-    private KeyCode up;
-    private KeyCode down;
-
-    private bool isAlive;
-
     private float speed;
+    private Vector3 rightVector;
 
-    public bool IsAlive
+    public MiniGame Game
     {
-        get { return isAlive; }
+        get { return game; }
+        set { game = value; }
     }
 
 	// Use this for initialization
 	void Start () {
-        game = GameObject.Find("MiniGameManager").GetComponent<MiniGame>();
-
-        //Set Player1 controls
-        if (gameObject.tag == "Player1")
-        {
-            left = KeyCode.A;
-            right = KeyCode.D;
-            up = KeyCode.W;
-            down = KeyCode.S;
-        }
-
-        //Set Player2 controls
-        else
-        {
-            left = KeyCode.LeftArrow;
-            right = KeyCode.RightArrow;
-            up = KeyCode.UpArrow;
-            down = KeyCode.DownArrow;
-        }
-
-        isAlive = true;
-
-        speed = 2.5f;
+        speed = 3.0f;
+        rightVector = transform.up;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        if (!game.GameOver)
-        {
-            ProcessInput();
-        }
+        Move();
 	}
 
-    /// <summary>
-    /// Removes player and transitions to game over when
-    /// collided with a cannonball
-    /// </summary>
-    /// <param name="collision"></param>
-    private void OnTriggerEnter2D(Collider2D collision)
+
+    private void OnTriggerEnter(Collider other)
     {
-        if (collision.transform.tag == "Cannonball")
+        //Collision with rock (Player died)
+        if (other.tag == "Rock")
         {
-            if (!game.GameOver)
-            {
-                //Mark that the game is over
-                game.GameOver = true;
+            //Hide player
+            gameObject.GetComponent<SpriteRenderer>().enabled = false;
 
-                //Show explosion
-                particles.Play();
+            //Play particle system
+            particles.Play();
 
-                //Mark that the player lost
-                isAlive = false;
-
-                //Make player invisible
-                gameObject.GetComponent<SpriteRenderer>().enabled = false;
-
-                //Switch to the game over game state
-                game.ChangeGameState();
-
-                //Set the winner of the game
-                game.DisplayWinner();
-            }
+            //Switch to game over state
+            game.SetGameOverState();
         }
     }
-    
-    /// <summary>
-    /// Handles player input for movement.
-    /// </summary>
-    private void ProcessInput()
+
+    private void OnTriggerExit(Collider other)
     {
-        //Up
-        if (Input.GetKey(up))
+        //Player won
+        if (other.tag == "Board Collider")
         {
-            //Change vector for movement
-            if (transform.right.y < 0.9)
-            {
-                transform.right = transform.up;
-            }
+            //Switch to game over state
+            game.SetGameOverState();
+        }
+    }
 
-            //Move
-            transform.position += transform.right * speed * Time.deltaTime;
+    private void Move()
+    {
+        //Both arrows pressed, keep ship straight
+        if (Input.GetKey(KeyCode.LeftArrow) && Input.GetKey(KeyCode.RightArrow))
+        {
+            transform.rotation = Quaternion.Euler(new Vector3(0.0f, 0.0f, 90.0f));
         }
 
-        //Down
-        else if (Input.GetKey(down))
+        //Left arrow, tilt to the left
+        else if (Input.GetKey(KeyCode.LeftArrow))
         {
-            //Change vector for movement
-            if (transform.right.y > -0.9)
-            {
-                transform.right = -transform.up;
-            }
-
-            //Move
-            transform.position += transform.right * speed * Time.deltaTime;
+            transform.position += -rightVector * speed * Time.deltaTime;
+            transform.rotation = Quaternion.Euler(new Vector3(0.0f, 0.0f, 80.0f));
         }
 
-        //Right
-        else if (Input.GetKey(right))
+        //Right arrow, tilt to the right
+        else if (Input.GetKey(KeyCode.RightArrow))
         {
-            //Change vector for movement
-            if (transform.right.x > -0.9)
-            {
-                transform.right = new Vector3(-1,0,0);
-            }
-
-            //Move
-            transform.position += transform.right * speed * Time.deltaTime;
+            transform.position += rightVector * speed * Time.deltaTime;
+            transform.rotation = Quaternion.Euler(new Vector3(0.0f, 0.0f, 100.0f));
         }
 
-        //Left
-        else if (Input.GetKey(left))
+        //Nothing pressed, keep ship straight
+        else
         {
-            //Change vector for movement
-            if (transform.right.x < 0.9)
+            if (transform.rotation.eulerAngles.z != 90.0f)
             {
-                transform.right = new Vector3(1,0,0);
+                transform.rotation = Quaternion.Euler(new Vector3(0.0f, 0.0f, 90.0f));
             }
-
-            //Move
-            transform.position += transform.right * speed * Time.deltaTime;
         }
     }
 }

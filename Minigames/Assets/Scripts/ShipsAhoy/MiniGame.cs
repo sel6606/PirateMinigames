@@ -5,54 +5,24 @@ using UnityEngine.UI;
 
 public class MiniGame : MonoBehaviour {
 
-    //UI Variables
-    public GameObject startScreen;
-    public GameObject gamePlayScreen;
-    public GameObject gameOverScreen;
-    public Text winner;
+    public GameObject instructionsScreen;
+    public GameObject gameoverScreen;
 
-    //GameObjects in scene
     public GameObject background;
-    public GameObject water;
-    public GameObject boardCollider;
-    public GameObject[] bounds;
+    public GameObject[] water;
+    public GameObject playerPrefab;
+    private GameObject player;
 
-    public GameObject cannonPrefab;
-    public GameObject entryPoint;
-    public GameObject[] spawnPoints;
-    public GameObject[] playerPrefabs;
-    public GameObject[] players;
+    private float scrollSpeed;
+    private bool isScrolling;
 
-    //Spawn intervals of cannons
-    private float spawnTime;
-    private float spawnTimer;
-
-    //Numbers of cannons spawning
-    private int numCannons;
-    private int maxCannons;
-
-    //Gamestates
     private bool isStarted;
     private bool gameOver;
 
-    #region Properties
-    public bool GameOver
-    {
-        get { return gameOver; }
-        set { gameOver = value; }
-    }
-
-    #endregion
-
-    // Use this for initialization
-    void Start () {
-        players = new GameObject[2];
-
-        spawnTime = 4.0f;
-        spawnTimer = spawnTime;
-
-        numCannons = 2;
-        maxCannons = 24;
+	// Use this for initialization
+	void Start () {
+        scrollSpeed = 3.0f;
+        isScrolling = false;
 
         isStarted = false;
         gameOver = false;
@@ -68,9 +38,6 @@ public class MiniGame : MonoBehaviour {
         }
 	}
 
-    /// <summary>
-    /// Scales the background to fit the screen
-    /// </summary>
     private void SetBackgroundToScreen()
     {
         /* 
@@ -98,255 +65,88 @@ public class MiniGame : MonoBehaviour {
         float yDistance = Mathf.Abs(background.transform.position.y - screenToWorld.y); //halfwidth.y
 
         //Scale the game by this distance
+        //Background
         background.transform.localScale = new Vector3(xDistance * 2.0f, yDistance * 2.0f, background.transform.localScale.z);
-        boardCollider.transform.localScale = new Vector3(xDistance * 2.0f, yDistance * 2.0f, boardCollider.transform.localScale.z);
-        entryPoint.transform.localScale = new Vector3(xDistance * 2.0f, yDistance * 2.0f, entryPoint.transform.localScale.z);
 
-        //Spawn points
-        for (int i = 0; i < spawnPoints.Length; i++)
+        //Water
+        for (int i = 0; i < water.Length; i++)
         {
-            if (spawnPoints[i].tag == "Vertical")
-            {
-                spawnPoints[i].transform.localScale = new Vector3(1.0f, yDistance * 2.0f, 1.0f);
+            water[i].transform.localScale = background.transform.localScale;
 
-                if (spawnPoints[i].name == "Spawn (Right)")
-                {
-                    spawnPoints[i].transform.position = new Vector3(-xDistance - 3.0f, 0.0f, 1.0f);
-                }
-                else
-                {
-                    spawnPoints[i].transform.position = new Vector3(xDistance + 3.0f, 0.0f, 1.0f);
-                }
-            }
-            else
+            //Reposition water
+            if (i > 0)
             {
-                spawnPoints[i].transform.localScale = new Vector3(xDistance * 2.0f, 1.0f, 1.0f);
-
-                if (spawnPoints[i].name == "Spawn (Top)")
-                {
-                    spawnPoints[i].transform.position = new Vector3(0.0f, yDistance + 3.0f, 1.0f);
-                }
-                else
-                {
-                    spawnPoints[i].transform.position = new Vector3(0.0f, -yDistance - 3.0f, 1.0f);
-                }
-            }
-        }
-
-        //Resizes and repositions bounds based on the screen size
-        for (int i = 0; i < bounds.Length; i++)
-        {
-            //Right bound
-            if (bounds[i].name == "Right Bound")
-            {
-                bounds[i].transform.localScale = new Vector3(0.5f, yDistance * 2.0f, 1.0f);
-                bounds[i].transform.position = new Vector3(xDistance, 0.0f, 1.0f);
-            }
-
-            //Left bound
-            else if (bounds[i].name == "Left Bound")
-            {
-                bounds[i].transform.localScale = new Vector3(0.5f, yDistance * 2.0f, 1.0f);
-                bounds[i].transform.position = new Vector3(-xDistance, 0.0f, 1.0f);
-            }
-
-            //Top bound
-            else if (bounds[i].name == "Top Bound")
-            {
-                bounds[i].transform.localScale = new Vector3(xDistance * 2.0f, 0.5f, 1.0f);
-                bounds[i].transform.position = new Vector3(0.0f, yDistance, 1.0f);
-            }
-
-            //Bottom bound
-            else
-            {
-                bounds[i].transform.localScale = new Vector3(xDistance * 2.0f, 0.5f, 1.0f);
-                bounds[i].transform.position = new Vector3(0.0f, -yDistance, 1.0f);
-            }
-        }
-
-        //Put player back on board if they're off the board
-        for (int i = 0; i < players.Length; i++)
-        {
-            if (players[i] != null)
-            {
-                if (Mathf.Abs(players[i].transform.position.x) > xDistance ||
-                Mathf.Abs(players[i].transform.position.y) > yDistance)
-                {
-                    players[i].transform.position = new Vector3(0.0f, 0.0f, 1.0f);
-                }
+                water[i].transform.position = new Vector3(0.0f, water[i - 1].transform.position.y + water[i].transform.localScale.y, 0.0f);
             }
         }
     }
 
-    /// <summary>
-    /// Called when play button is clicked to start the game
-    /// </summary>
+    private void ScrollGame()
+    {
+        //If the last water block is scrolling off screen
+        if (water[water.Length - 1].transform.position.y < 0.0f)
+        {
+            //Set it on screen
+            water[water.Length - 1].transform.position = Vector3.zero;
+
+            //Stop scrolling
+            isScrolling = false;
+        }
+
+        //Scroll
+        for (int i = 0; i < water.Length; i++)
+        {
+            water[i].transform.position += -water[i].transform.up * scrollSpeed * Time.deltaTime;
+        }
+    }
+
+    private void ScrollPlayer()
+    {
+        player.transform.position += player.transform.up * scrollSpeed * Time.deltaTime;
+    }
+
+    public void SetGameOverState()
+    {
+        gameOver = true;
+        gameoverScreen.SetActive(true);
+    }
+
+    private void SpawnPlayer()
+    {
+        //Spawn slightly below center
+        player = Instantiate(playerPrefab, new Vector3(0.0f, background.transform.position.y - background.transform.localScale.y / 4.0f, 1.0f), Quaternion.Euler(new Vector3(0.0f, 0.0f, 90.0f)));
+
+        //Set player reference to this script
+        player.GetComponent<Player>().Game = this;
+    }
+
     public void StartGame()
     {
-        //Mark that the game has started
+        //Mark that the game started
         isStarted = true;
 
-        //Switch to the game play game state
-        ChangeGameState();
+        //Hide the instructions screen
+        instructionsScreen.SetActive(false);
 
-        //Spawn in the players
-        SpawnPlayers();
+        //Create the player
+        SpawnPlayer();
 
-        //Spawn in the cannons
-        SpawnCannons();
+        //Start scrolling the game
+        isScrolling = true;
     }
 
-    /// <summary>
-    /// Runs the game
-    /// </summary>
     private void Play()
     {
-        //Decrease time to spawn cannon
-        spawnTimer -= Time.deltaTime;
-
-        if (spawnTimer <= 0)
+        //Scroll the game while the game is not at the end
+        if (isScrolling)
         {
-            //Reset spawn timer
-            spawnTimer = spawnTime;
-
-            //Spawn cannons
-            SpawnCannons();
-
-            //Increase number of cannons spawning
-            numCannons += 4;
-
-            //Clamp numCannons
-            if (numCannons >= maxCannons)
-            {
-                numCannons = maxCannons;
-            }
+            ScrollGame();
         }
-    }
 
-    /// <summary>
-    /// Handles switching between game states (UI)
-    /// </summary>
-    public void ChangeGameState()
-    {
-        if (isStarted && !gameOver)
-        {
-            //Hide instructions screen
-            startScreen.SetActive(false);
-
-            //Show gameplay screen
-            gamePlayScreen.SetActive(true);
-        }
+        //Scroll the player once the game is at the end
         else
         {
-            //Hide gameplay screen
-            gamePlayScreen.SetActive(false);
-
-            //Show gameover screen
-            gameOverScreen.SetActive(true);
-        }
-    }
-
-    /// <summary>
-    /// Displays the winner when the game is over
-    /// </summary>
-    public void DisplayWinner()
-    {
-        for (int i = 0; i < players.Length; i++)
-        {
-            //If player is not alive
-            if (!players[i].GetComponent<Player>().IsAlive)
-            {
-                //Player 2 died
-                if (i == players.Length - 1)
-                {
-                    winner.text = "Player 1 is the winner!";
-                }
-
-                //Player 1 died
-                else
-                {
-                    winner.text = "Player 2 is the winner!";
-                }
-
-                return;
-            }
-        }
-
-        winner.text = "It's a Tie!";
-    }
-
-    /// <summary>
-    /// Spawns both of the players in the scene
-    /// </summary>
-    private void SpawnPlayers()
-    {
-        //Get the collider that represents the bounds that players can spawn in
-        GameObject bounds = GameObject.FindGameObjectWithTag("Entry");
-
-        //Create 2 players
-        for (int i = 0; i < 2; i++)
-        {
-            //Variables to hold position
-            float x = 0;
-            float y = 0;
-            float z = 1;
-
-            //Get a random x and y position for the player
-            x = Random.Range(bounds.transform.position.x - bounds.transform.localScale.x / 4.0f, bounds.transform.position.x + bounds.transform.localScale.x / 4.0f);
-            y = Random.Range(bounds.transform.position.y - bounds.transform.localScale.y / 4.0f, bounds.transform.position.y + bounds.transform.localScale.y / 4.0f);
-
-            //Spawn the player
-            GameObject player = Instantiate(playerPrefabs[i], new Vector3(x, y, z), Quaternion.identity);
-
-            //Add player to array of players in the scene
-            players[i] = player;
-        }
-
-    }
-
-    /// <summary>
-    /// Spawns cannons in the scene.
-    /// </summary>
-    private void SpawnCannons()
-    {
-        for (int i = 0; i < numCannons; i++)
-        {
-            //Choose random edge to spawn at (left, right, top, bottom)
-            int randEdge = Random.Range(0, 4);
-
-            //Variables to hold position
-            float x = 0;
-            float y = 0;
-            float z = 1;
-
-            //Left and Right spawn points
-            if (spawnPoints[randEdge].tag == "Vertical")
-            {
-                GameObject spawnPoint = spawnPoints[randEdge];
-                float minY = spawnPoint.transform.position.y - spawnPoint.transform.localScale.y / 2.0f;
-                float maxY = spawnPoint.transform.position.y + spawnPoint.transform.localScale.y / 2.0f;
-
-                x = spawnPoint.transform.position.x;
-                y = Random.Range(minY, maxY);
-            }
-
-            //Top and Bottom spawn points
-            else
-            {
-                GameObject spawnPoint = spawnPoints[randEdge];
-                float minX = spawnPoint.transform.position.x - spawnPoint.transform.localScale.x / 2.0f;
-                float maxX = spawnPoint.transform.position.x + spawnPoint.transform.localScale.x / 2.0f;
-
-                x = Random.Range(minX, maxX);
-                y = spawnPoint.transform.position.y;
-            }
-
-            //Set position vector
-            Vector3 pos = new Vector3(x, y, z);
-
-            //Create cannon
-            Instantiate(cannonPrefab, pos, Quaternion.identity);
+            ScrollPlayer();
         }
     }
 }
