@@ -81,7 +81,7 @@
     <Compile Include="Assets\Scripts\GoldRush\Bill.cs" />
     <Compile Include="Assets\Scripts\GoldRush\Coin.cs" />
     <Compile Include="Assets\Scripts\GoldRush\Hat.cs" />
-    <Compile Include="Assets\Scripts\GoldRush\MiniGame.cs" />
+    <Compile Include="Assets\Scripts\GoldRush\MiniGameGoldRush.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />

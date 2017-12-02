@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class MiniGame : MonoBehaviour {
+public class MiniGameGoldRush : MonoBehaviour {
 
     //UI Variables
     public GameObject instructionsScreen;

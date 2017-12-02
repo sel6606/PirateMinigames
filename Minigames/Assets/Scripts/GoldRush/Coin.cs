@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class Coin : MonoBehaviour {
 
-    private MiniGame game;
+    private MiniGameGoldRush game;
 
     private float speed;
 
-    public MiniGame Game
+    public MiniGameGoldRush Game
     {
         set { game = value; }
     }
