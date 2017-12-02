@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour {
+public class CMayhemPlayer : MonoBehaviour {
 
-    private MiniGame game;
+    private CMayhemMiniGame game;
 
     public ParticleSystem particles;
 
@@ -22,9 +22,10 @@ public class Player : MonoBehaviour {
         get { return isAlive; }
     }
 
-	// Use this for initialization
-	void Start () {
-        game = GameObject.Find("MiniGameManager").GetComponent<MiniGame>();
+    // Use this for initialization
+    void Start()
+    {
+        game = GameObject.Find("MiniGameManager").GetComponent<CMayhemMiniGame>();
 
         //Set Player1 controls
         if (gameObject.tag == "Player1")
@@ -47,15 +48,16 @@ public class Player : MonoBehaviour {
         isAlive = true;
 
         speed = 2.5f;
-	}
-	
-	// Update is called once per frame
-	void Update () {
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
         if (!game.GameOver)
         {
             ProcessInput();
         }
-	}
+    }
 
     /// <summary>
     /// Removes player and transitions to game over when
@@ -88,7 +90,7 @@ public class Player : MonoBehaviour {
             }
         }
     }
-    
+
     /// <summary>
     /// Handles player input for movement.
     /// </summary>
@@ -126,7 +128,7 @@ public class Player : MonoBehaviour {
             //Change vector for movement
             if (transform.right.x > -0.9)
             {
-                transform.right = new Vector3(-1,0,0);
+                transform.right = new Vector3(-1, 0, 0);
             }
 
             //Move
@@ -139,7 +141,7 @@ public class Player : MonoBehaviour {
             //Change vector for movement
             if (transform.right.x < 0.9)
             {
-                transform.right = new Vector3(1,0,0);
+                transform.right = new Vector3(1, 0, 0);
             }
 
             //Move

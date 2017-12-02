@@ -35,11 +35,11 @@ GameObject:
   m_Component:
   - component: {fileID: 4401155000121800}
   - component: {fileID: 212598403909060360}
-  - component: {fileID: 114449246668297778}
   - component: {fileID: 61938587868860086}
   - component: {fileID: 50806298944415920}
+  - component: {fileID: 114465103314610080}
   m_Layer: 0
-  m_Name: Cannon
+  m_Name: CMayhem Cannon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -117,7 +117,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 12.61, y: 6.23}
   m_EdgeRadius: 0
---- !u!114 &114449246668297778
+--- !u!114 &114465103314610080
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -125,7 +125,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1521066531731554}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e82bbe4a8ff160144b4f6b327fbed6aa, type: 3}
+  m_Script: {fileID: 11500000, guid: 7a1f96e9a376d0245983e6af149460d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   cannonballPrefab: {fileID: 1223450603019002, guid: 60866c7fa55a0c14da51b89c69a8c379,

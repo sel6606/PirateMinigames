@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class MiniGame : MonoBehaviour {
+public class CMayhemMiniGame : MonoBehaviour {
 
     //UI Variables
     public GameObject startScreen;
@@ -44,7 +44,8 @@ public class MiniGame : MonoBehaviour {
     #endregion
 
     // Use this for initialization
-    void Start () {
+    void Start()
+    {
         players = new GameObject[2];
 
         spawnTime = 4.0f;
@@ -55,17 +56,18 @@ public class MiniGame : MonoBehaviour {
 
         isStarted = false;
         gameOver = false;
-	}
-	
-	// Update is called once per frame
-	void Update () {
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
         SetBackgroundToScreen();
 
         if (isStarted && !gameOver)
         {
             Play();
         }
-	}
+    }
 
     /// <summary>
     /// Scales the background to fit the screen
@@ -254,7 +256,7 @@ public class MiniGame : MonoBehaviour {
         for (int i = 0; i < players.Length; i++)
         {
             //If player is not alive
-            if (!players[i].GetComponent<Player>().IsAlive)
+            if (!players[i].GetComponent<CMayhemPlayer>().IsAlive)
             {
                 //Player 2 died
                 if (i == players.Length - 1)

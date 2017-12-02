@@ -2,19 +2,21 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Cannonball : MonoBehaviour {
+public class CMayhemCannonball : MonoBehaviour {
 
     private float speed;
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start()
+    {
         speed = 4.5f;
-	}
-	
-	// Update is called once per frame
-	void Update () {
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
         Move();
-	}
+    }
 
     /// <summary>
     /// Destroys cannonball once moved off screen

@@ -78,10 +78,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\CannonballMayhem\Cannon.cs" />
-    <Compile Include="Assets\Scripts\CannonballMayhem\Cannonball.cs" />
-    <Compile Include="Assets\Scripts\CannonballMayhem\MiniGame.cs" />
-    <Compile Include="Assets\Scripts\CannonballMayhem\Player.cs" />
+    <Compile Include="Assets\Scripts\CannonballMayhem\CMayhemCannon.cs" />
+    <Compile Include="Assets\Scripts\CannonballMayhem\CMayhemCannonball.cs" />
+    <Compile Include="Assets\Scripts\CannonballMayhem\CMayhemMiniGame.cs" />
+    <Compile Include="Assets\Scripts\CannonballMayhem\CMayhemPlayer.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />

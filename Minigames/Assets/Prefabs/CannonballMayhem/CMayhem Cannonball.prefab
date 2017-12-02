@@ -20,11 +20,11 @@ GameObject:
   m_Component:
   - component: {fileID: 4551508831191378}
   - component: {fileID: 212915126585845550}
-  - component: {fileID: 114620775967153530}
   - component: {fileID: 50554645074266610}
   - component: {fileID: 58487617371041316}
+  - component: {fileID: 114122665428206686}
   m_Layer: 0
-  m_Name: Cannonball
+  m_Name: CMayhem Cannonball
   m_TagString: Cannonball
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -78,7 +78,7 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 1.34
---- !u!114 &114620775967153530
+--- !u!114 &114122665428206686
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -86,7 +86,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1223450603019002}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 77277bcf9ef2c1843bc96836884149d7, type: 3}
+  m_Script: {fileID: 11500000, guid: fb964160bdd8dfc40a480b285c54efb3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!212 &212915126585845550
