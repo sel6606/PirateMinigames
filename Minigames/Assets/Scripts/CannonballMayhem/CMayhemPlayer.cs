@@ -17,9 +17,20 @@ public class CMayhemPlayer : MonoBehaviour {
 
     private float speed;
 
+    private int lives;
+    private bool isRespawning;
+    private bool isInvincible;
+    private float invincibleTimer;
+
     public bool IsAlive
     {
         get { return isAlive; }
+    }
+
+    public int Lives
+    {
+        get { return lives; }
+        set { lives = value; }
     }
 
     // Use this for initialization
@@ -48,6 +59,10 @@ public class CMayhemPlayer : MonoBehaviour {
         isAlive = true;
 
         speed = 2.5f;
+
+        isRespawning = false;
+        isInvincible = false;
+        invincibleTimer = 3.0f;
     }
 
     // Update is called once per frame
@@ -55,7 +70,38 @@ public class CMayhemPlayer : MonoBehaviour {
     {
         if (!game.GameOver)
         {
+            //Move
             ProcessInput();
+
+            if (isRespawning && particles.isStopped)
+            {
+                //Mark that the player is ready to spawn (particle system stopped playing)
+                isRespawning = false;
+
+                //Respawn the player
+                Respawn();
+            }
+
+            else if (!isRespawning && isInvincible)
+            {
+                //Decrease the invincible timer
+                invincibleTimer -= Time.deltaTime;
+
+                //Blink the player
+                gameObject.GetComponent<SpriteRenderer>().enabled = !gameObject.GetComponent<SpriteRenderer>().enabled;
+
+                if (invincibleTimer <= 0)
+                {
+                    //Stop making the player invincible
+                    isInvincible = false;
+
+                    //Make sure the player is visible
+                    gameObject.GetComponent<SpriteRenderer>().enabled = true;
+
+                    //Reset timer
+                    invincibleTimer = 3.0f;
+                }
+            }
         }
     }
 
@@ -68,25 +114,51 @@ public class CMayhemPlayer : MonoBehaviour {
     {
         if (collision.transform.tag == "Cannonball")
         {
-            if (!game.GameOver)
+            if (!isInvincible)
             {
-                //Mark that the game is over
-                game.GameOver = true;
+                //Subtract the player's life count
+                lives--;
 
-                //Show explosion
-                particles.Play();
+                //See if they can respawn
+                if (lives > 0)
+                {
+                    //Show explosion
+                    particles.Play();
 
-                //Mark that the player lost
-                isAlive = false;
+                    //Make player invisible
+                    gameObject.GetComponent<SpriteRenderer>().enabled = false;
 
-                //Make player invisible
-                gameObject.GetComponent<SpriteRenderer>().enabled = false;
+                    //Mark that the player is respawning
+                    isRespawning = true;
 
-                //Switch to the game over game state
-                game.ChangeGameState();
+                    //Mark that the player is invincible
+                    isInvincible = true;
 
-                //Set the winner of the game
-                game.DisplayWinner();
+                    //Update the UI display to show the player lives
+                    game.DisplayLives();
+                }
+
+                //No more lives, end game if it hasn't ended
+                else if (!game.GameOver)
+                {
+                    //Mark that the game is over
+                    game.GameOver = true;
+
+                    //Show explosion
+                    particles.Play();
+
+                    //Mark that the player lost
+                    isAlive = false;
+
+                    //Make player invisible
+                    gameObject.GetComponent<SpriteRenderer>().enabled = false;
+
+                    //Switch to the game over game state
+                    game.ChangeGameState();
+
+                    //Set the winner of the game
+                    game.DisplayWinner();
+                }
             }
         }
     }
@@ -147,5 +219,11 @@ public class CMayhemPlayer : MonoBehaviour {
             //Move
             transform.position += transform.right * speed * Time.deltaTime;
         }
+    }
+
+    private void Respawn()
+    {
+        //Respawn at the center of the background
+        transform.position = new Vector3(game.background.transform.position.x, game.background.transform.position.y, 1.0f);
     }
 }
