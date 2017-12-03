@@ -24,6 +24,18 @@ public class SAMiniGame : MonoBehaviour {
     private bool isStarted;
     private bool gameOver;
 
+    private float spawnTimer;
+
+    public bool GameOver
+    {
+        get { return gameOver; }
+    }
+
+    public bool IsScrolling
+    {
+        get { return isScrolling; }
+    }
+
     // Use this for initialization
     void Start()
     {
@@ -32,6 +44,8 @@ public class SAMiniGame : MonoBehaviour {
 
         isStarted = false;
         gameOver = false;
+
+        spawnTimer = 0.4f;
     }
 
     // Update is called once per frame
@@ -109,10 +123,10 @@ public class SAMiniGame : MonoBehaviour {
         }
 
         //Spawn Point
-        float maxX = bounds[0].transform.position.x - bounds[0].transform.localScale.x * 1.5f;
-        float minX = bounds[1].transform.position.x + bounds[1].transform.localScale.x * 1.5f;
+        float maxX = bounds[0].transform.position.x - bounds[0].transform.localScale.x * 0.75f;
+        float minX = bounds[1].transform.position.x + bounds[1].transform.localScale.x * 0.75f;
 
-        spawnPoint.transform.position = new Vector3(background.transform.position.x, background.transform.position.y + yDistance, 1.0f);
+        spawnPoint.transform.position = new Vector3(background.transform.position.x, background.transform.position.y + yDistance * 1.3f, 1.0f);
         spawnPoint.transform.localScale = new Vector3(Mathf.Abs(maxX - minX), 0.5f, 1.0f);
     }
 
@@ -190,6 +204,18 @@ public class SAMiniGame : MonoBehaviour {
         if (isScrolling)
         {
             ScrollGame();
+
+            //Decrease spawn timer for rocks
+            spawnTimer -= Time.deltaTime;
+
+            if (spawnTimer <= 0)
+            {
+                //Reset timer
+                spawnTimer = 2.0f;
+
+                //Spawn in rocks
+                SpawnRockInterval();
+            }
         }
 
         //Scroll the player once the game is at the end
@@ -199,16 +225,39 @@ public class SAMiniGame : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    /// Spawns the rocks in the game
+    /// </summary>
     private void SpawnRocks()
     {
-        for (int i = 0; i < 1; i++)
+        int randCount = Random.Range(1, 4);
+
+        for (int i = 0; i < randCount; i++)
         {
-            
+            //Get a random position along the spawn point's width
+            float x = Random.Range(spawnPoint.transform.position.x - spawnPoint.transform.localScale.x / 2.0f, spawnPoint.transform.position.x + spawnPoint.transform.localScale.x / 2.0f);
+
+            //Choose a random rock prefab to spawn
+            int randRock = Random.Range(0, 3);
+
+            //Spawn the rock
+            //Note: Spawn at z = 1.0f because all 2D gameobjects will be moving on z = 1.0f
+            GameObject rock = Instantiate(rockPrefabs[randRock], new Vector3(x, spawnPoint.transform.position.y, 1.0f), Quaternion.identity);
+
+            //Set reference to this script
+            rock.GetComponent<SARockScript>().Game = this;
         }
     }
 
-    private void SpawnRocksInterval()
+    private void SpawnRockInterval()
     {
+        float time = 1.0f;
 
+        for (int i = 0; i < 4; i++)
+        {
+            Invoke("SpawnRocks", time);
+
+            time += 0.5f;
+        }
     }
 }

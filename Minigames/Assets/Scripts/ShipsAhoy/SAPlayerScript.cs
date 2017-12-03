@@ -20,14 +20,17 @@ public class SAPlayerScript : MonoBehaviour {
     // Use this for initialization
     void Start()
     {
-        speed = 3.0f;
+        speed = 3.5f;
         rightVector = transform.up;
     }
 
     // Update is called once per frame
     void Update()
     {
-        Move();
+        if (!game.GameOver)
+        {
+            Move();
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -35,14 +38,17 @@ public class SAPlayerScript : MonoBehaviour {
         //Collision with rock (Player died)
         if (collision.tag == "Rock")
         {
-            //Hide player
-            gameObject.GetComponent<SpriteRenderer>().enabled = false;
+            if (!game.GameOver)
+            {
+                //Hide player
+                gameObject.GetComponent<SpriteRenderer>().enabled = false;
 
-            //Play particle system
-            particles.Play();
+                //Play particle system
+                particles.Play();
 
-            //Switch to game over state
-            game.SetGameOverState(false);
+                //Switch to game over state
+                game.SetGameOverState(false);
+            }
         }
     }
 

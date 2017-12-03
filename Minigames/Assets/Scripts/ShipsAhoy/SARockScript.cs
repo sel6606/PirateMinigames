@@ -4,18 +4,53 @@ using UnityEngine;
 
 public class SARockScript : MonoBehaviour {
 
+    private SAMiniGame game;
+
     private float speed;
+
+    private bool onScreen;
+
+    public SAMiniGame Game
+    {
+        get { return game; }
+        set { game = value; }
+    }
 
     // Use this for initialization
     void Start()
     {
         speed = 5.0f;
+
+        onScreen = false;
+
+        if (game != null && !game.IsScrolling)
+        {
+            Destroy(gameObject);
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        Move();
+        if (game.IsScrolling)
+        {
+            Move();
+        }
+
+        //Destroy rock if the player is scrolling and if
+        //it is not already on screen
+        if (!onScreen && !game.IsScrolling)
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.tag == "Board Collider")
+        {
+            onScreen = true;
+        }
     }
 
     /// <summary>
