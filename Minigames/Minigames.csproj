@@ -96,6 +96,10 @@
     <Compile Include="Assets\Scripts\ShipsAhoy\SAMiniGame.cs" />
     <Compile Include="Assets\Scripts\ShipsAhoy\SAPlayerScript.cs" />
     <Compile Include="Assets\Scripts\ShipsAhoy\SARockScript.cs" />
+    <Compile Include="Assets\Scripts\Showdown\Cannonball.cs" />
+    <Compile Include="Assets\Scripts\Showdown\Intro.cs" />
+    <Compile Include="Assets\Scripts\Showdown\Player.cs" />
+    <Compile Include="Assets\Scripts\Showdown\Showdown.cs" />
     <Compile Include="Assets\Scripts\Word Game Scripts\Timer.cs" />
     <Compile Include="Assets\Scripts\Word Game Scripts\WordBank.cs" />
   </ItemGroup>
