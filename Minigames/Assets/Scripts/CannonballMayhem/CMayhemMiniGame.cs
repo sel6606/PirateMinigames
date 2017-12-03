@@ -313,6 +313,21 @@ public class CMayhemMiniGame : MonoBehaviour {
                 //Player 2 died
                 if (i == players.Length - 1)
                 {
+                    #region Calculate Player One's Winnings
+                    int winnings = PlayerInfo.instance.ShipsP2[PlayerInfo.instance.PlayerTwoShip].goldAmount;
+
+                    ShipData temp = PlayerInfo.instance.ShipsP1[PlayerInfo.instance.PlayerOneShip];
+
+                    temp.goldAmount += winnings;
+
+                    if(temp.goldAmount > 9)
+                    {
+                        temp.goldAmount = 9;
+                    }
+
+                    PlayerInfo.instance.ShipsP1[PlayerInfo.instance.PlayerOneShip] = temp;
+                    #endregion
+
                     PlayerInfo.instance.ShipsP2.RemoveAt(PlayerInfo.instance.PlayerTwoShip);
                     winner.text = "Player 1 is the winner!";
                 }
@@ -320,6 +335,21 @@ public class CMayhemMiniGame : MonoBehaviour {
                 //Player 1 died
                 else
                 {
+                    #region Calculate Player Two's Winnings
+                    int winnings = PlayerInfo.instance.ShipsP1[PlayerInfo.instance.PlayerOneShip].goldAmount;
+
+                    ShipData temp = PlayerInfo.instance.ShipsP2[PlayerInfo.instance.PlayerTwoShip];
+
+                    temp.goldAmount += winnings;
+
+                    if (temp.goldAmount > 9)
+                    {
+                        temp.goldAmount = 9;
+                    }
+
+                    PlayerInfo.instance.ShipsP2[PlayerInfo.instance.PlayerTwoShip] = temp;
+                    #endregion
+
                     PlayerInfo.instance.ShipsP1.RemoveAt(PlayerInfo.instance.PlayerOneShip);
                     winner.text = "Player 2 is the winner!";
                 }
