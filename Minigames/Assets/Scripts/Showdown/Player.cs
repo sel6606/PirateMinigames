@@ -104,7 +104,7 @@ public class Player : MonoBehaviour {
             ball.transform.right = this.transform.right;
         }
         //spawn a cannonball on the right if player two is pressing '3' on the keypad
-        if (Input.GetKeyDown(KeyCode.Keypad3) && this.gameObject.name == "PlayerTwo")
+        if (Input.GetKeyDown(KeyCode.KeypadEnter) && this.gameObject.name == "PlayerTwo")
         {
             GameObject ball = Instantiate(game.cannonballSprite, transform.position, Quaternion.identity);
             ball.AddComponent<Cannonball>();
@@ -112,7 +112,7 @@ public class Player : MonoBehaviour {
             ball.transform.right = -(this.transform.right);
         }
         //spawn a cannonball on the left if player two is pressing '1' on the keypad
-        if (Input.GetKeyDown(KeyCode.Keypad1) && this.gameObject.name == "PlayerTwo")
+        if (Input.GetKeyDown(KeyCode.KeypadPeriod) && this.gameObject.name == "PlayerTwo")
         {
             GameObject ball = Instantiate(game.cannonballSprite, transform.position, Quaternion.identity);
             ball.AddComponent<Cannonball>();

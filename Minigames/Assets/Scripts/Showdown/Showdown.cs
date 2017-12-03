@@ -42,6 +42,7 @@ public class Showdown : MonoBehaviour {
         pTwo = Instantiate(playerTwoSprite, new Vector3(5, 0, 0), Quaternion.identity);
         pTwo.name = "PlayerTwo";
         pTwo.AddComponent<Player>();
+        pTwo.transform.eulerAngles = new Vector3(180, 0, 0);
     }
 
     //ends the game once a player reaches 0 health
@@ -59,7 +60,6 @@ public class Showdown : MonoBehaviour {
             Destroy(pTwo);
             gameover = true;
         }
-        //gameOverText = Instantiate(gameOverText, new Vector3(0, 2, 0), Quaternion.identity);
 
     }
 
