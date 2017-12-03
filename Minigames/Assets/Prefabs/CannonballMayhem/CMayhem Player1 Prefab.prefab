@@ -41,7 +41,7 @@ GameObject:
   - component: {fileID: 50069118272553742}
   - component: {fileID: 114582871466741622}
   m_Layer: 0
-  m_Name: CMayhem Player1
+  m_Name: CMayhem Player1 Prefab
   m_TagString: Player1
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
