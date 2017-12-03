@@ -19,12 +19,19 @@ public class DragShips : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
     #region Class Variables
     private Transform shipyard;
     private int goldAmount;
+    private int listIndex;
     #endregion
 
     public int GoldAmount
     {
         get { return goldAmount; }
         set { goldAmount = value; }
+    }
+
+    public int ListIndex
+    {
+        get { return listIndex; }
+        set { listIndex = value; }
     }
 
     /// <summary>
@@ -72,6 +79,7 @@ public class DragShips : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
                     r.GetComponentInChildren<Text>().enabled = false;
                     r.GetComponent<MinigameSelect>().GoldOnShip = goldAmount;
                     r.GetComponent<MinigameSelect>().IsSet = true;
+                    r.GetComponent<MinigameSelect>().ListIndex = listIndex;
                     break;
                 }
 

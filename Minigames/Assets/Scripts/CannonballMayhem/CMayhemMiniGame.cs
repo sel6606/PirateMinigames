@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public enum PlayerAdvantage
@@ -228,6 +229,7 @@ public class CMayhemMiniGame : MonoBehaviour {
     public void ExitGame()
     {
         //Write code to return to interface scene
+        SceneManager.LoadScene("MainScene");
     }
 
     /// <summary>
@@ -311,12 +313,14 @@ public class CMayhemMiniGame : MonoBehaviour {
                 //Player 2 died
                 if (i == players.Length - 1)
                 {
+                    PlayerInfo.instance.ShipsP2.RemoveAt(PlayerInfo.instance.PlayerTwoShip);
                     winner.text = "Player 1 is the winner!";
                 }
 
                 //Player 1 died
                 else
                 {
+                    PlayerInfo.instance.ShipsP1.RemoveAt(PlayerInfo.instance.PlayerOneShip);
                     winner.text = "Player 2 is the winner!";
                 }
 

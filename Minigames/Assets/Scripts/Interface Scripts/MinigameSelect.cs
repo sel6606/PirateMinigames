@@ -11,6 +11,7 @@ public class MinigameSelect : MonoBehaviour
     private bool isSet;
     private int goldOnShip;
     private RectTransform setObject;
+    private int listIndex;
 
     public bool IsSet
     {
@@ -24,8 +25,14 @@ public class MinigameSelect : MonoBehaviour
         set { goldOnShip = value; }
     }
 
-	// Use this for initialization
-	void Start ()
+    public int ListIndex
+    {
+        get { return listIndex; }
+        set { listIndex = value; }
+    }
+
+    // Use this for initialization
+    void Start ()
     {
         isSet = false;
         goldOnShip = 0;

@@ -29,13 +29,13 @@ public class SetupInterface : MonoBehaviour
         //Add the ships for player one
         foreach(ShipData s in shipsP1)
         {
-            AddShip(true, s.isFlagship, s.goldAmount);
+            AddShip(shipsP1.IndexOf(s), true, s.isFlagship, s.goldAmount);
         }
 
         //Add the ships for player two
         foreach(ShipData s in shipsP2)
         {
-            AddShip(false, s.isFlagship, s.goldAmount);
+            AddShip(shipsP2.IndexOf(s), false, s.isFlagship, s.goldAmount);
         }
     }
 	
@@ -48,10 +48,11 @@ public class SetupInterface : MonoBehaviour
     /// <summary>
     /// Initializes a ship on the interface
     /// </summary>
+    /// <param name="listIndex">The index of the ship in the shipyard</param>
     /// <param name="isPlayer1">Which player to initialize the ship for true = player 1, false = player 2</param>
     /// <param name="isFlagship">Is the ship a flagship or not? Default is false</param>
     /// <param name="startGold">Optional parameter for the amount of gold to initialize the ship with</param>
-    public void AddShip(bool isPlayer1, bool isFlagship = false, int startGold = -1)
+    public void AddShip(int listIndex, bool isPlayer1, bool isFlagship = false, int startGold = -1)
     {
         RectTransform parentTemp;
         int defaultStartGold;
@@ -99,7 +100,8 @@ public class SetupInterface : MonoBehaviour
         temp.GetComponentInChildren<Text>().text = startGold.ToString();
         temp.GetComponent<DragShips>().draggableArea = draggableArea;
         temp.GetComponent<DragShips>().GoldAmount = startGold;
-       
+        temp.GetComponent<DragShips>().ListIndex = listIndex;
+
     }
 
 }

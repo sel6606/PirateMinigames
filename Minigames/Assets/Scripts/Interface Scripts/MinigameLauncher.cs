@@ -41,7 +41,10 @@ public class MinigameLauncher : MonoBehaviour
             int goldP1 = playerFields[p1].GetComponent<MinigameSelect>().GoldOnShip;
             int goldP2 = playerFields[p2].GetComponent<MinigameSelect>().GoldOnShip;
 
-            if(goldP1 > goldP2)
+            PlayerInfo.instance.PlayerOneShip = playerFields[p1].GetComponent<MinigameSelect>().ListIndex;
+            PlayerInfo.instance.PlayerTwoShip = playerFields[p2].GetComponent<MinigameSelect>().ListIndex;
+
+            if (goldP1 > goldP2)
             {
                 PlayerInfo.instance.Advantage = PlayerAdvantage.Player1;
             }

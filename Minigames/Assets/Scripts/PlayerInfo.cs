@@ -27,6 +27,9 @@ public class PlayerInfo : MonoBehaviour
     private List<PortData> ports;
 
     private PlayerAdvantage advantage;
+
+    private int playerOneShip;
+    private int playerTwoShip;
     #endregion
 
     #region Properties
@@ -52,6 +55,18 @@ public class PlayerInfo : MonoBehaviour
     {
         get { return advantage; }
         set { advantage = value; }
+    }
+
+    public int PlayerOneShip
+    {
+        get { return playerOneShip; }
+        set { playerOneShip = value; }
+    }
+
+    public int PlayerTwoShip
+    {
+        get { return playerTwoShip; }
+        set { playerTwoShip = value; }
     }
     #endregion
 
@@ -83,6 +98,8 @@ public class PlayerInfo : MonoBehaviour
         shipsP2 = instance.ShipsP2;
         ports = instance.Ports;
         advantage = instance.Advantage;
+        playerOneShip = instance.PlayerOneShip;
+        playerTwoShip = instance.PlayerTwoShip;
 		
 	}
 
