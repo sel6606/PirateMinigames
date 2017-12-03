@@ -77,10 +77,13 @@ public class DragShips : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
                     transform.SetParent(r);
                     transform.localPosition = new Vector3(0, 0, transform.parent.localPosition.z);
                     r.GetComponentInChildren<Text>().enabled = false;
+
+                    //Tell the ship slot various information about the ship
                     r.GetComponent<MinigameSelect>().GoldOnShip = goldAmount;
                     r.GetComponent<MinigameSelect>().IsSet = true;
                     r.GetComponent<MinigameSelect>().ListIndex = listIndex;
 
+                    //Tell the MinigameSelect component which player is in the slot
                     if(shipyard.gameObject.tag.Equals("Player1"))
                     {
                         r.GetComponent<MinigameSelect>().WhichPlayer = PlayerAdvantage.Player1;

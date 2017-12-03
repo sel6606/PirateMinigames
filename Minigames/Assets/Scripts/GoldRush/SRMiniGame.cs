@@ -158,33 +158,43 @@ public class SRMiniGame : MonoBehaviour {
     public void ExitGame()
     {
         
+        //In this case, the player with the advantage is the player who the ship belongs to
+        //Determine which player controls this ship
         if (PlayerInfo.instance.Advantage == PlayerAdvantage.Player1)
         {
+            //Retrieve the ship data and get the current gold
             ShipData temp = PlayerInfo.instance.ShipsP1[PlayerInfo.instance.SinglePlayerShip];
             int currentGold = temp.goldAmount;
 
+            //Calculate the new gold amount based on the winnings
             int newGold = currentGold + gold;
 
+            //Clamp the gold to a maximum of 9
             if(newGold > 9)
             {
                 newGold = 9;
             }
-
+            
+            //Give the new ship data to the PlayerInfo singleton
             temp.goldAmount = newGold;
             PlayerInfo.instance.ShipsP1[PlayerInfo.instance.SinglePlayerShip] = temp;
         }
         else if (PlayerInfo.instance.Advantage == PlayerAdvantage.Player2)
         {
+            //Retrieve the ship data and get the current gold
             ShipData temp = PlayerInfo.instance.ShipsP2[PlayerInfo.instance.SinglePlayerShip];
             int currentGold = temp.goldAmount;
 
+            //Calculate the new gold amount based on the winnings
             int newGold = currentGold + gold;
 
+            //Clamp the gold to a maximum of 9
             if (newGold > 9)
             {
                 newGold = 9;
             }
 
+            //Give the new ship data to the PlayerInfo singleton
             temp.goldAmount = newGold;
             PlayerInfo.instance.ShipsP2[PlayerInfo.instance.SinglePlayerShip] = temp;
         }

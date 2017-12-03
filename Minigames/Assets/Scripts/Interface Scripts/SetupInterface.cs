@@ -96,8 +96,11 @@ public class SetupInterface : MonoBehaviour
         {
             temp.GetComponent<DragShips>().possibleTargets = targetsP2;
         }
+
         //Set the text
         temp.GetComponentInChildren<Text>().text = startGold.ToString();
+
+        //Set other necessary variables
         temp.GetComponent<DragShips>().draggableArea = draggableArea;
         temp.GetComponent<DragShips>().GoldAmount = startGold;
         temp.GetComponent<DragShips>().ListIndex = listIndex;
