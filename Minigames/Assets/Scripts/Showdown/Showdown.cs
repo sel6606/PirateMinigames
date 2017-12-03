@@ -28,7 +28,6 @@ public class Showdown : MonoBehaviour {
 	void Update () {
         if (gameover != true)
         {
-            SpawnCannonballs();
             UpdateHealth();
             GameOver();
         }
@@ -62,26 +61,6 @@ public class Showdown : MonoBehaviour {
         }
         //gameOverText = Instantiate(gameOverText, new Vector3(0, 2, 0), Quaternion.identity);
 
-    }
-
-    //spawns cannonballs on-screen
-    public void SpawnCannonballs()
-    {
-        //spawn a cannonball if player one is pressing space
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            
-            GameObject ball = Instantiate(cannonballSprite, pOne.transform.position, Quaternion.identity);
-            ball.AddComponent<Cannonball>();
-            ball.GetComponent<Cannonball>().direction = 1;
-        }
-        //spawn a cannonball if player two is pressing enter on the keypad
-        if (Input.GetKeyDown(KeyCode.KeypadEnter))
-        {
-            GameObject ball = Instantiate(cannonballSprite, pTwo.transform.position, Quaternion.identity);
-            ball.AddComponent<Cannonball>();
-            ball.GetComponent<Cannonball>().direction = 0;
-        }
     }
 
     //updates UI for each player's health
