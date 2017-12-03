@@ -3,10 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+public enum PlayerAdvantage
+{
+    Player1,
+    Player2,
+    None
+}
+
 public class CMayhemMiniGame : MonoBehaviour {
 
     //Who has the gold adavantage
-    private string playerAdvantage;
+    private PlayerAdvantage playerAdvantage;
     
     //UI Variables
     public GameObject startScreen;
@@ -46,7 +53,7 @@ public class CMayhemMiniGame : MonoBehaviour {
         set { gameOver = value; }
     }
 
-    public string PlayerAdvantage
+    public PlayerAdvantage PlayerAdvantage
     {
         get { return playerAdvantage; }
         set { playerAdvantage = value; }
@@ -59,7 +66,9 @@ public class CMayhemMiniGame : MonoBehaviour {
     {
         //This will need to reference the singleton
         //I'm setting it manually here for testing
-        playerAdvantage = "None";
+        playerAdvantage = PlayerInfo.instance.Advantage;
+
+
 
         players = new GameObject[2];
 
@@ -342,11 +351,11 @@ public class CMayhemMiniGame : MonoBehaviour {
             GameObject player = Instantiate(playerPrefabs[i], new Vector3(x, y, z), Quaternion.identity);
 
             //Check if player has an advantage
-            if (i == 0 && playerAdvantage == "Player1")
+            if (i == 0 && playerAdvantage == PlayerAdvantage.Player1)
             {
                 player.GetComponent<CMayhemPlayer>().Lives = 2;
             }
-            else if (i == 1 && playerAdvantage == "Player2")
+            else if (i == 1 && playerAdvantage == PlayerAdvantage.Player2)
             {
                 player.GetComponent<CMayhemPlayer>().Lives = 2;
             }

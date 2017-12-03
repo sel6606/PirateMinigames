@@ -38,6 +38,23 @@ public class MinigameLauncher : MonoBehaviour
     {
         if(playerFields[p1].GetComponent<MinigameSelect>().IsSet && playerFields[p2].GetComponent<MinigameSelect>().IsSet)
         {
+            int goldP1 = playerFields[p1].GetComponent<MinigameSelect>().GoldOnShip;
+            int goldP2 = playerFields[p2].GetComponent<MinigameSelect>().GoldOnShip;
+
+            if(goldP1 > goldP2)
+            {
+                PlayerInfo.instance.Advantage = PlayerAdvantage.Player1;
+            }
+            else if(goldP2 > goldP1)
+            {
+                PlayerInfo.instance.Advantage = PlayerAdvantage.Player2;
+            }
+            else
+            {
+                PlayerInfo.instance.Advantage = PlayerAdvantage.None;
+            }
+
+            Debug.Log(PlayerInfo.instance.Advantage);
             SceneManager.LoadScene("Cannonball Mayhem");
         }
     }
