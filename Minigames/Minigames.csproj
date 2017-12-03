@@ -93,6 +93,9 @@
     <Compile Include="Assets\Scripts\Interface Scripts\SetupInterface.cs" />
     <Compile Include="Assets\Scripts\Interface Scripts\ShipData.cs" />
     <Compile Include="Assets\Scripts\PlayerInfo.cs" />
+    <Compile Include="Assets\Scripts\ShipsAhoy\SAMiniGame.cs" />
+    <Compile Include="Assets\Scripts\ShipsAhoy\SAPlayerScript.cs" />
+    <Compile Include="Assets\Scripts\ShipsAhoy\SARockScript.cs" />
     <Compile Include="Assets\Scripts\Word Game Scripts\Timer.cs" />
     <Compile Include="Assets\Scripts\Word Game Scripts\WordBank.cs" />
   </ItemGroup>

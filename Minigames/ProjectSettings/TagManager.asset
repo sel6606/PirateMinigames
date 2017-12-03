@@ -11,6 +11,8 @@ TagManager:
   - Player1
   - Player2
   - Entry
+  - Rock
+  - Board Collider
   layers:
   - Default
   - TransparentFX
