@@ -3,13 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class MiniGame : MonoBehaviour {
+public class CMayhemMiniGame : MonoBehaviour {
 
+    //Who has the gold adavantage
+    private string playerAdvantage;
+    
     //UI Variables
     public GameObject startScreen;
     public GameObject gamePlayScreen;
     public GameObject gameOverScreen;
     public Text winner;
+    public Text p1Lives;
+    public Text p2Lives;
 
     //GameObjects in scene
     public GameObject background;
@@ -41,10 +46,21 @@ public class MiniGame : MonoBehaviour {
         set { gameOver = value; }
     }
 
+    public string PlayerAdvantage
+    {
+        get { return playerAdvantage; }
+        set { playerAdvantage = value; }
+    }
+
     #endregion
 
     // Use this for initialization
-    void Start () {
+    void Start()
+    {
+        //This will need to reference the singleton
+        //I'm setting it manually here for testing
+        playerAdvantage = "None";
+
         players = new GameObject[2];
 
         spawnTime = 4.0f;
@@ -55,17 +71,18 @@ public class MiniGame : MonoBehaviour {
 
         isStarted = false;
         gameOver = false;
-	}
-	
-	// Update is called once per frame
-	void Update () {
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
         SetBackgroundToScreen();
 
         if (isStarted && !gameOver)
         {
             Play();
         }
-	}
+    }
 
     /// <summary>
     /// Scales the background to fit the screen
@@ -186,14 +203,22 @@ public class MiniGame : MonoBehaviour {
         //Mark that the game has started
         isStarted = true;
 
-        //Switch to the game play game state
-        ChangeGameState();
-
         //Spawn in the players
         SpawnPlayers();
 
         //Spawn in the cannons
         SpawnCannons();
+
+        //Switch to the game play game state
+        ChangeGameState();
+
+        //Display the player lives in the UI
+        DisplayLives();
+    }
+
+    public void ExitGame()
+    {
+        //Write code to return to interface scene
     }
 
     /// <summary>
@@ -246,6 +271,24 @@ public class MiniGame : MonoBehaviour {
         }
     }
 
+    public void DisplayLives()
+    {
+        for (int i = 0; i < 2; i++)
+        {
+            //Display player 1's lives
+            if (i == 0)
+            {
+                p1Lives.text = "P1 Lives: " + players[i].GetComponent<CMayhemPlayer>().Lives;
+            }
+
+            //Display player 2's lives
+            else
+            {
+                p2Lives.text = "P2 Lives: " + players[i].GetComponent<CMayhemPlayer>().Lives;
+            }
+        }
+    }
+
     /// <summary>
     /// Displays the winner when the game is over
     /// </summary>
@@ -254,7 +297,7 @@ public class MiniGame : MonoBehaviour {
         for (int i = 0; i < players.Length; i++)
         {
             //If player is not alive
-            if (!players[i].GetComponent<Player>().IsAlive)
+            if (!players[i].GetComponent<CMayhemPlayer>().IsAlive)
             {
                 //Player 2 died
                 if (i == players.Length - 1)
@@ -297,6 +340,20 @@ public class MiniGame : MonoBehaviour {
 
             //Spawn the player
             GameObject player = Instantiate(playerPrefabs[i], new Vector3(x, y, z), Quaternion.identity);
+
+            //Check if player has an advantage
+            if (i == 0 && playerAdvantage == "Player1")
+            {
+                player.GetComponent<CMayhemPlayer>().Lives = 2;
+            }
+            else if (i == 1 && playerAdvantage == "Player2")
+            {
+                player.GetComponent<CMayhemPlayer>().Lives = 2;
+            }
+            else
+            {
+                player.GetComponent<CMayhemPlayer>().Lives = 1;
+            }
 
             //Add player to array of players in the scene
             players[i] = player;

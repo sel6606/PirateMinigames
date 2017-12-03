@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Cannon : MonoBehaviour {
+public class CMayhemCannon : MonoBehaviour {
 
     public GameObject cannonballPrefab;
 
@@ -14,8 +14,9 @@ public class Cannon : MonoBehaviour {
 
     private bool onScreen;
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start()
+    {
         startTimer = Random.Range(2.0f, 6.0f);
 
         waitTimer = 2.0f;
@@ -23,7 +24,7 @@ public class Cannon : MonoBehaviour {
         speed = 1.0f;
 
         onScreen = false;
-	}
+    }
 
     //Fires cannonball when moved on screen
     private void OnTriggerEnter2D(Collider2D collision)
@@ -45,7 +46,8 @@ public class Cannon : MonoBehaviour {
     }
 
     // Update is called once per frame
-    void Update () {
+    void Update()
+    {
         if (!onScreen)
         {
             //Wait to start moving
@@ -75,7 +77,7 @@ public class Cannon : MonoBehaviour {
                 MoveOnScreen();
             }
         }
-        
+
         else
         {
             //Wait on the screen
@@ -90,7 +92,7 @@ public class Cannon : MonoBehaviour {
                 MoveOffScreen();
             }
         }
-	}
+    }
 
     /// <summary>
     /// Moves cannon on screen
