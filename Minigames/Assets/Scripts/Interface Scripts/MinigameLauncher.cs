@@ -103,7 +103,40 @@ public class MinigameLauncher : MonoBehaviour
             }
             else
             {
+                //Tell the PlayerInfo singleton the index of the ship and which player the ship belongs to
+                PlayerInfo.instance.SinglePlayerShip = playerFields[2].GetComponent<MinigameSelect>().ListIndex;
+                PlayerInfo.instance.Advantage = playerFields[2].GetComponent<MinigameSelect>().WhichPlayer;
 
+                //Make sure the ship has at least 5 gold
+                if (playerFields[2].GetComponent<MinigameSelect>().GoldOnShip >= 5)
+                {
+                    //Determine if the ship belongs to player one or player two
+                    if(playerFields[2].GetComponent<MinigameSelect>().WhichPlayer == PlayerAdvantage.Player1)
+                    {
+                        //Remove 5 gold from the ship
+                        ShipData temp = PlayerInfo.instance.ShipsP1[PlayerInfo.instance.SinglePlayerShip];
+                        int currentGold = temp.goldAmount;
+
+                        currentGold -= 5;
+
+                        temp.goldAmount = currentGold;
+                        PlayerInfo.instance.ShipsP1[PlayerInfo.instance.SinglePlayerShip] = temp;
+                    }
+                    else if (playerFields[2].GetComponent<MinigameSelect>().WhichPlayer == PlayerAdvantage.Player2)
+                    {
+                        //Remove 5 gold from the ship
+                        ShipData temp = PlayerInfo.instance.ShipsP2[PlayerInfo.instance.SinglePlayerShip];
+                        int currentGold = temp.goldAmount;
+
+                        currentGold -= 5;
+
+                        temp.goldAmount = currentGold;
+                        PlayerInfo.instance.ShipsP2[PlayerInfo.instance.SinglePlayerShip] = temp;
+                    }
+
+                    //Load the minigame
+                    SceneManager.LoadScene("ShipsAhoy");
+                }
             }
         }
     }

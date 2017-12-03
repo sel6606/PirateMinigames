@@ -1755,7 +1755,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startingShipsP1:
   - name: Pirate 1
-    goldAmount: 3
+    goldAmount: 5
     isFlagship: 1
   - name: Pirate 2
     goldAmount: 1

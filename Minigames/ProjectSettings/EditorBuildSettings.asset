@@ -17,3 +17,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/GoldRush.unity
     guid: c49aae41f9da64545977e01060734c56
+  - enabled: 1
+    path: Assets/Scenes/ShipsAhoy.unity
+    guid: 87e5e0772f8059342a90c3e1113dfc35

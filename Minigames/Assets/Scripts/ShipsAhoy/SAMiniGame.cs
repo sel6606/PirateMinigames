@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class SAMiniGame : MonoBehaviour {
@@ -158,6 +159,19 @@ public class SAMiniGame : MonoBehaviour {
     {
         if (hasWon)
         {
+            //Create a new pawn ship with 1 gold
+            ShipData temp = new ShipData("NewShip", 1, false);
+
+            //Determine which player controls the new ship and add it to their shipyard
+            if (PlayerInfo.instance.Advantage == PlayerAdvantage.Player1)
+            {
+                PlayerInfo.instance.ShipsP1.Add(temp);
+            }
+            else if (PlayerInfo.instance.Advantage == PlayerAdvantage.Player2)
+            {
+                PlayerInfo.instance.ShipsP2.Add(temp);
+            }
+
             results.text = "You successfully recruited a ship.";
         }
         else
@@ -196,6 +210,7 @@ public class SAMiniGame : MonoBehaviour {
     public void ExitGame()
     {
         //Write code to switch to interface scene
+        SceneManager.LoadScene("MainScene");
     }
 
     private void Play()
