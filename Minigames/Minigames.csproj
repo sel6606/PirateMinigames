@@ -82,6 +82,10 @@
     <Compile Include="Assets\Scripts\CannonballMayhem\CMayhemCannonball.cs" />
     <Compile Include="Assets\Scripts\CannonballMayhem\CMayhemMiniGame.cs" />
     <Compile Include="Assets\Scripts\CannonballMayhem\CMayhemPlayer.cs" />
+    <Compile Include="Assets\Scripts\GoldRush\SRBill.cs" />
+    <Compile Include="Assets\Scripts\GoldRush\SRCoin.cs" />
+    <Compile Include="Assets\Scripts\GoldRush\SRHat.cs" />
+    <Compile Include="Assets\Scripts\GoldRush\SRMiniGame.cs" />
     <Compile Include="Assets\Scripts\Interface Scripts\DragShips.cs" />
     <Compile Include="Assets\Scripts\Interface Scripts\MinigameLauncher.cs" />
     <Compile Include="Assets\Scripts\Interface Scripts\MinigameSelect.cs" />
