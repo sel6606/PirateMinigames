@@ -68,6 +68,8 @@ public class MinigameLauncher : MonoBehaviour
         {
             if (earnGold)
             {
+                PlayerInfo.instance.SinglePlayerShip = playerFields[2].GetComponent<MinigameSelect>().ListIndex;
+                PlayerInfo.instance.Advantage = playerFields[2].GetComponent<MinigameSelect>().WhichPlayer;
                 SceneManager.LoadScene("GoldRush");
             }
             else

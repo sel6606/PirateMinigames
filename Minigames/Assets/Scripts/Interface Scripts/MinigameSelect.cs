@@ -12,6 +12,7 @@ public class MinigameSelect : MonoBehaviour
     private int goldOnShip;
     private RectTransform setObject;
     private int listIndex;
+    private PlayerAdvantage whichPlayer;
 
     public bool IsSet
     {
@@ -29,6 +30,12 @@ public class MinigameSelect : MonoBehaviour
     {
         get { return listIndex; }
         set { listIndex = value; }
+    }
+
+    public PlayerAdvantage WhichPlayer
+    {
+        get { return whichPlayer; }
+        set { whichPlayer = value; }
     }
 
     // Use this for initialization

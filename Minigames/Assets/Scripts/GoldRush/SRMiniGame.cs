@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class SRMiniGame : MonoBehaviour {
@@ -156,7 +157,39 @@ public class SRMiniGame : MonoBehaviour {
 
     public void ExitGame()
     {
+        
+        if (PlayerInfo.instance.Advantage == PlayerAdvantage.Player1)
+        {
+            ShipData temp = PlayerInfo.instance.ShipsP1[PlayerInfo.instance.SinglePlayerShip];
+            int currentGold = temp.goldAmount;
+
+            int newGold = currentGold + gold;
+
+            if(newGold > 9)
+            {
+                newGold = 9;
+            }
+
+            temp.goldAmount = newGold;
+            PlayerInfo.instance.ShipsP1[PlayerInfo.instance.SinglePlayerShip] = temp;
+        }
+        else if (PlayerInfo.instance.Advantage == PlayerAdvantage.Player2)
+        {
+            ShipData temp = PlayerInfo.instance.ShipsP2[PlayerInfo.instance.SinglePlayerShip];
+            int currentGold = temp.goldAmount;
+
+            int newGold = currentGold + gold;
+
+            if (newGold > 9)
+            {
+                newGold = 9;
+            }
+
+            temp.goldAmount = newGold;
+            PlayerInfo.instance.ShipsP2[PlayerInfo.instance.SinglePlayerShip] = temp;
+        }
         //Write code to switch to interface scene
+        SceneManager.LoadScene("MainScene");
     }
 
     /// <summary>

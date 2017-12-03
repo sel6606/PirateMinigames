@@ -80,6 +80,15 @@ public class DragShips : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
                     r.GetComponent<MinigameSelect>().GoldOnShip = goldAmount;
                     r.GetComponent<MinigameSelect>().IsSet = true;
                     r.GetComponent<MinigameSelect>().ListIndex = listIndex;
+
+                    if(shipyard.gameObject.tag.Equals("Player1"))
+                    {
+                        r.GetComponent<MinigameSelect>().WhichPlayer = PlayerAdvantage.Player1;
+                    }
+                    else
+                    {
+                        r.GetComponent<MinigameSelect>().WhichPlayer = PlayerAdvantage.Player2;
+                    }
                     break;
                 }
 

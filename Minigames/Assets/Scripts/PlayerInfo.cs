@@ -30,6 +30,8 @@ public class PlayerInfo : MonoBehaviour
 
     private int playerOneShip;
     private int playerTwoShip;
+
+    private int singlePlayerShip;
     #endregion
 
     #region Properties
@@ -68,6 +70,12 @@ public class PlayerInfo : MonoBehaviour
         get { return playerTwoShip; }
         set { playerTwoShip = value; }
     }
+
+    public int SinglePlayerShip
+    {
+        get { return singlePlayerShip; }
+        set { singlePlayerShip = value; }
+    }
     #endregion
 
     void Awake()
@@ -100,6 +108,7 @@ public class PlayerInfo : MonoBehaviour
         advantage = instance.Advantage;
         playerOneShip = instance.PlayerOneShip;
         playerTwoShip = instance.PlayerTwoShip;
+        singlePlayerShip = instance.SinglePlayerShip;
 		
 	}
 
