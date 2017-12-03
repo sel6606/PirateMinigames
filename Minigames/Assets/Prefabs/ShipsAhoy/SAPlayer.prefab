@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 198418767476967294}
   - component: {fileID: 199285598157285934}
   m_Layer: 0
-  m_Name: P1 Particle System
+  m_Name: SAPlayer Particle System
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -39,10 +39,10 @@ GameObject:
   - component: {fileID: 212062833486593782}
   - component: {fileID: 61432202309130268}
   - component: {fileID: 50069118272553742}
-  - component: {fileID: 114966780911952676}
+  - component: {fileID: 114223251834455296}
   m_Layer: 0
-  m_Name: Player1
-  m_TagString: Player1
+  m_Name: SAPlayer
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -54,7 +54,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1966298962338732}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -5.1869164, y: 11.62237, z: 3.8580704}
+  m_LocalPosition: {x: -140.63068, y: 113.90837, z: -564.58905}
   m_LocalScale: {x: 0.12, y: 0.12, z: 0.12}
   m_Children:
   - {fileID: 4949914393580604}
@@ -119,7 +119,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 8.69, y: 2.88}
   m_EdgeRadius: 0
---- !u!114 &114966780911952676
+--- !u!114 &114223251834455296
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -127,7 +127,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1966298962338732}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 03c91f72982c83741831d7e8f7845777, type: 3}
+  m_Script: {fileID: 11500000, guid: 44a349606b1cefc42a77aec4d224323b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   particles: {fileID: 198418767476967294}
@@ -186,7 +186,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -96825114
+  randomSeed: -97086903
   InitialModule:
     serializedVersion: 3
     enabled: 1

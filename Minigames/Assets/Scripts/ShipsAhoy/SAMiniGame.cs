@@ -3,15 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class MiniGame : MonoBehaviour {
+public class SAMiniGame : MonoBehaviour {
 
     public GameObject instructionsScreen;
     public GameObject gameoverScreen;
+    public Text results;
 
     public GameObject background;
+    public GameObject boardCollider;
+    public GameObject spawnPoint;
+    public GameObject[] bounds;
     public GameObject[] water;
     public GameObject playerPrefab;
     private GameObject player;
+    public GameObject[] rockPrefabs;
 
     private float scrollSpeed;
     private bool isScrolling;
@@ -19,24 +24,26 @@ public class MiniGame : MonoBehaviour {
     private bool isStarted;
     private bool gameOver;
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start()
+    {
         scrollSpeed = 3.0f;
         isScrolling = false;
 
         isStarted = false;
         gameOver = false;
-	}
-	
-	// Update is called once per frame
-	void Update () {
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
         SetBackgroundToScreen();
 
         if (isStarted && !gameOver)
         {
             Play();
         }
-	}
+    }
 
     private void SetBackgroundToScreen()
     {
@@ -68,6 +75,9 @@ public class MiniGame : MonoBehaviour {
         //Background
         background.transform.localScale = new Vector3(xDistance * 2.0f, yDistance * 2.0f, background.transform.localScale.z);
 
+        //Board Collider
+        boardCollider.transform.localScale = new Vector3(xDistance * 2.0f, yDistance * 2.0f, 1.0f);
+
         //Water
         for (int i = 0; i < water.Length; i++)
         {
@@ -79,10 +89,41 @@ public class MiniGame : MonoBehaviour {
                 water[i].transform.position = new Vector3(0.0f, water[i - 1].transform.position.y + water[i].transform.localScale.y, 0.0f);
             }
         }
+
+        //Bounds
+        for (int i = 0; i < bounds.Length; i++)
+        {
+            //Left Bounds
+            if (i == 0)
+            {
+                bounds[i].transform.localScale = new Vector3(1.0f, yDistance * 3.0f, 1.0f);
+                bounds[i].transform.position = new Vector3(background.transform.position.x + background.transform.localScale.x / 4.0f, background.transform.position.y, 1.0f);
+            }
+
+            //Right Bounds
+            else
+            {
+                bounds[i].transform.localScale = new Vector3(1.0f, yDistance * 3.0f, 1.0f);
+                bounds[i].transform.position = new Vector3(background.transform.position.x - background.transform.localScale.x / 4.0f, background.transform.position.y, 1.0f);
+            }
+        }
+
+        //Spawn Point
+        float maxX = bounds[0].transform.position.x - bounds[0].transform.localScale.x * 1.5f;
+        float minX = bounds[1].transform.position.x + bounds[1].transform.localScale.x * 1.5f;
+
+        spawnPoint.transform.position = new Vector3(background.transform.position.x, background.transform.position.y + yDistance, 1.0f);
+        spawnPoint.transform.localScale = new Vector3(Mathf.Abs(maxX - minX), 0.5f, 1.0f);
     }
 
     private void ScrollGame()
     {
+        //Scroll
+        for (int i = 0; i < water.Length; i++)
+        {
+            water[i].transform.position += -water[i].transform.up * scrollSpeed * Time.deltaTime;
+        }
+
         //If the last water block is scrolling off screen
         if (water[water.Length - 1].transform.position.y < 0.0f)
         {
@@ -92,21 +133,24 @@ public class MiniGame : MonoBehaviour {
             //Stop scrolling
             isScrolling = false;
         }
-
-        //Scroll
-        for (int i = 0; i < water.Length; i++)
-        {
-            water[i].transform.position += -water[i].transform.up * scrollSpeed * Time.deltaTime;
-        }
     }
 
     private void ScrollPlayer()
     {
-        player.transform.position += player.transform.up * scrollSpeed * Time.deltaTime;
+        player.transform.position += player.transform.right * scrollSpeed * Time.deltaTime;
     }
 
-    public void SetGameOverState()
+    public void SetGameOverState(bool hasWon)
     {
+        if (hasWon)
+        {
+            results.text = "You successfully recruited a ship.";
+        }
+        else
+        {
+            results.text = "Your ship sank to the bottom of the sea.";
+        }
+
         gameOver = true;
         gameoverScreen.SetActive(true);
     }
@@ -117,7 +161,7 @@ public class MiniGame : MonoBehaviour {
         player = Instantiate(playerPrefab, new Vector3(0.0f, background.transform.position.y - background.transform.localScale.y / 4.0f, 1.0f), Quaternion.Euler(new Vector3(0.0f, 0.0f, 90.0f)));
 
         //Set player reference to this script
-        player.GetComponent<Player>().Game = this;
+        player.GetComponent<SAPlayerScript>().Game = this;
     }
 
     public void StartGame()
@@ -135,6 +179,11 @@ public class MiniGame : MonoBehaviour {
         isScrolling = true;
     }
 
+    public void ExitGame()
+    {
+        //Write code to switch to interface scene
+    }
+
     private void Play()
     {
         //Scroll the game while the game is not at the end
@@ -148,5 +197,18 @@ public class MiniGame : MonoBehaviour {
         {
             ScrollPlayer();
         }
+    }
+
+    private void SpawnRocks()
+    {
+        for (int i = 0; i < 1; i++)
+        {
+            
+        }
+    }
+
+    private void SpawnRocksInterval()
+    {
+
     }
 }

@@ -2,37 +2,38 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour {
+public class SAPlayerScript : MonoBehaviour {
 
-    private MiniGame game;
+    private SAMiniGame game;
 
     public ParticleSystem particles;
 
     private float speed;
     private Vector3 rightVector;
 
-    public MiniGame Game
+    public SAMiniGame Game
     {
         get { return game; }
         set { game = value; }
     }
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start()
+    {
         speed = 3.0f;
         rightVector = transform.up;
-	}
-	
-	// Update is called once per frame
-	void Update () {
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
         Move();
-	}
+    }
 
-
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         //Collision with rock (Player died)
-        if (other.tag == "Rock")
+        if (collision.tag == "Rock")
         {
             //Hide player
             gameObject.GetComponent<SpriteRenderer>().enabled = false;
@@ -41,17 +42,20 @@ public class Player : MonoBehaviour {
             particles.Play();
 
             //Switch to game over state
-            game.SetGameOverState();
+            game.SetGameOverState(false);
         }
     }
 
-    private void OnTriggerExit(Collider other)
+    private void OnTriggerExit2D(Collider2D collision)
     {
         //Player won
-        if (other.tag == "Board Collider")
+        if (collision.tag == "Board Collider")
         {
+            //Make player invisible
+            gameObject.GetComponent<SpriteRenderer>().enabled = false;
+
             //Switch to game over state
-            game.SetGameOverState();
+            game.SetGameOverState(true);
         }
     }
 

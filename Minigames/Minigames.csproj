@@ -78,8 +78,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\ShipsAhoy\MiniGame.cs" />
-    <Compile Include="Assets\Scripts\ShipsAhoy\Player.cs" />
+    <Compile Include="Assets\Scripts\ShipsAhoy\SAMiniGame.cs" />
+    <Compile Include="Assets\Scripts\ShipsAhoy\SAPlayerScript.cs" />
+    <Compile Include="Assets\Scripts\ShipsAhoy\SARockScript.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />

@@ -4,13 +4,8 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Vertical
-  - Horizontal
-  - Board
-  - Cannonball
-  - Player1
-  - Player2
-  - Entry
+  - Board Collider
+  - Rock
   layers:
   - Default
   - TransparentFX
