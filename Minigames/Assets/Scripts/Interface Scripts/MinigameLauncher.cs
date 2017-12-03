@@ -16,7 +16,7 @@ public class MinigameLauncher : MonoBehaviour
     {
         p1 = -1;
         p2 = -1;
-	}
+    }
 	
 	// Update is called once per frame
 	void Update ()
@@ -39,6 +39,21 @@ public class MinigameLauncher : MonoBehaviour
         if(playerFields[p1].GetComponent<MinigameSelect>().IsSet && playerFields[p2].GetComponent<MinigameSelect>().IsSet)
         {
             SceneManager.LoadScene("Cannonball Mayhem");
+        }
+    }
+
+    public void LaunchPortMinigame(bool earnGold)
+    {
+        if (playerFields[2].GetComponent<MinigameSelect>().IsSet)
+        {
+            if (earnGold)
+            {
+                SceneManager.LoadScene("GoldRush");
+            }
+            else
+            {
+
+            }
         }
     }
 }
