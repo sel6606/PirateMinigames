@@ -154,4 +154,12 @@ public class MinigameLauncher : MonoBehaviour
             }
         }
     }
+
+    /// <summary>
+    /// Quits the application
+    /// </summary>
+    public void QuitGame()
+    {
+        Application.Quit();
+    }
 }
