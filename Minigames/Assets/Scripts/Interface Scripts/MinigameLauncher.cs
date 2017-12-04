@@ -77,7 +77,21 @@ public class MinigameLauncher : MonoBehaviour
             }
 
             //Load the minigame
-            SceneManager.LoadScene("Cannonball Mayhem");
+
+            int randomMinigame = Random.Range(0, 2);
+
+            switch(randomMinigame)
+            {
+                case 0:
+                    SceneManager.LoadScene("Cannonball Mayhem");
+                    break;
+                case 1:
+                    SceneManager.LoadScene("ShowdownIntro");
+                    break;
+                default:
+                    Debug.Log("Something went wrong");
+                    break;
+            }
         }
     }
 

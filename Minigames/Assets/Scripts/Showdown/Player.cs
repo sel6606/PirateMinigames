@@ -15,14 +15,15 @@ public class Player : MonoBehaviour {
     }
 
 	// Use this for initialization
-	void Start () {
-        game = GameObject.Find("GameManager").GetComponent<Showdown>();
-        health = 3;
+	void Start ()
+    {
+        game = GameObject.Find("GameManager2").GetComponent<Showdown>();
         speed = 2.5f;
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void Update ()
+    {
         if (health > 0)
         {
             Move();
