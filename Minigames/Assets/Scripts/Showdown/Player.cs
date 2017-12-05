@@ -44,10 +44,10 @@ public class Player : MonoBehaviour {
                 transform.position -= transform.up * speed * Time.deltaTime;
             }
             //move backward
-            /*if (Input.GetKey(KeyCode.S))
+            if (Input.GetKey(KeyCode.S))
             {
                 transform.position += transform.up * speed * Time.deltaTime;
-            }*/
+            }
             //turn left
             if (Input.GetKey(KeyCode.A))
             {
@@ -67,11 +67,11 @@ public class Player : MonoBehaviour {
             {
                 transform.position -= transform.up * speed * Time.deltaTime;
             }
-            /*move backward
+            //move backward
             if (Input.GetKey(KeyCode.DownArrow))
             {
                 transform.position += transform.up * speed * Time.deltaTime;
-            }*/
+            }
             //turn left
             if (Input.GetKey(KeyCode.LeftArrow))
             {
