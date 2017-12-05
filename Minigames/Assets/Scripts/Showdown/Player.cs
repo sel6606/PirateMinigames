@@ -75,12 +75,12 @@ public class Player : MonoBehaviour {
             //turn left
             if (Input.GetKey(KeyCode.LeftArrow))
             {
-                transform.eulerAngles += new Vector3(0, 0, 1);
+                transform.eulerAngles -= new Vector3(0, 0, 1);
             }
             //turn right
             if (Input.GetKey(KeyCode.RightArrow))
             {
-                transform.eulerAngles -= new Vector3(0, 0, 1);
+                transform.eulerAngles += new Vector3(0, 0, 1);
             }
         }
     }
@@ -110,7 +110,7 @@ public class Player : MonoBehaviour {
             GameObject ball = Instantiate(game.cannonballSprite, transform.position, Quaternion.identity);
             ball.AddComponent<Cannonball>();
             ball.GetComponent<Cannonball>().owner = 2;
-            ball.transform.right = -(this.transform.right);
+            ball.transform.right = this.transform.right;
         }
         //spawn a cannonball on the left if player two is pressing '1' on the keypad
         if (Input.GetKeyDown(KeyCode.KeypadPeriod) && this.gameObject.name == "PlayerTwo")
@@ -118,7 +118,7 @@ public class Player : MonoBehaviour {
             GameObject ball = Instantiate(game.cannonballSprite, transform.position, Quaternion.identity);
             ball.AddComponent<Cannonball>();
             ball.GetComponent<Cannonball>().owner = 2;
-            ball.transform.right = this.transform.right;
+            ball.transform.right = -(this.transform.right);
         }
     }
 
