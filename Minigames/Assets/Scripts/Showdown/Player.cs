@@ -112,16 +112,16 @@ public class Player : MonoBehaviour {
     //spawns cannonballs on-screen
     public void SpawnCannonballs()
     {
-        //spawn a cannonball on the right if player one is pressing 'E'
-        if (Input.GetKeyDown(KeyCode.E) && this.gameObject.name == "PlayerOne")
+        //spawn a cannonball on the right if player one is pressing 'M'
+        if (Input.GetKeyDown(KeyCode.M) && this.gameObject.name == "PlayerOne")
         {
             GameObject ball = Instantiate(game.cannonballSprite, transform.position, Quaternion.identity);
             ball.AddComponent<Cannonball>();
             ball.GetComponent<Cannonball>().owner = 1;
             ball.transform.right = -(this.transform.right);
         }
-        //spawn a cannonball on the left if player one is pressing 'Q'
-        if (Input.GetKeyDown(KeyCode.Q) && this.gameObject.name == "PlayerOne")
+        //spawn a cannonball on the left if player one is pressing 'N'
+        if (Input.GetKeyDown(KeyCode.N) && this.gameObject.name == "PlayerOne")
         {
             GameObject ball = Instantiate(game.cannonballSprite, transform.position, Quaternion.identity);
             ball.AddComponent<Cannonball>();
@@ -129,7 +129,7 @@ public class Player : MonoBehaviour {
             ball.transform.right = this.transform.right;
         }
         //spawn a cannonball on the right if player two is pressing '3' on the keypad
-        if (Input.GetKeyDown(KeyCode.KeypadEnter) && this.gameObject.name == "PlayerTwo")
+        if (Input.GetKeyDown(KeyCode.Keypad3) && this.gameObject.name == "PlayerTwo")
         {
             GameObject ball = Instantiate(game.cannonballSprite, transform.position, Quaternion.identity);
             ball.AddComponent<Cannonball>();
@@ -137,7 +137,7 @@ public class Player : MonoBehaviour {
             ball.transform.right = this.transform.right;
         }
         //spawn a cannonball on the left if player two is pressing '1' on the keypad
-        if (Input.GetKeyDown(KeyCode.KeypadPeriod) && this.gameObject.name == "PlayerTwo")
+        if (Input.GetKeyDown(KeyCode.Keypad1) && this.gameObject.name == "PlayerTwo")
         {
             GameObject ball = Instantiate(game.cannonballSprite, transform.position, Quaternion.identity);
             ball.AddComponent<Cannonball>();

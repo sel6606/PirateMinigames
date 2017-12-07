@@ -53,7 +53,7 @@ public class Showdown : MonoBehaviour {
         //If a player has more gold than the other, give them more starting health
         if (PlayerInfo.instance.Advantage == PlayerAdvantage.Player1)
         {
-            Debug.Log("Player 1 advantage");
+            //Debug.Log("Player 1 advantage");
             pOne.GetComponent<Player>().Health = 5;
             pTwo.GetComponent<Player>().Health = 3;
         }
