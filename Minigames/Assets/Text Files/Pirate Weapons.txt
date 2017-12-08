@@ -1,0 +1,20 @@
+cutlass
+buckler
+boarding axe
+boarding pike
+blunderbuss
+flintlock
+rapier
+dagger
+musketoon
+pistol
+cannon
+tomahawk
+dirk
+scimitar
+grenade
+grappling hook
+knife
+broadsword
+saber
+matchlock
