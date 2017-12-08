@@ -143,6 +143,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   draggableArea: {fileID: 0}
+  possibleTargets: []
 --- !u!114 &114154133789303806
 MonoBehaviour:
   m_ObjectHideFlags: 1
