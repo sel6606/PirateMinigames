@@ -62,7 +62,7 @@ public class CMayhemPlayer : MonoBehaviour {
 
         isRespawning = false;
         isInvincible = false;
-        invincibleTimer = 3.0f;
+        invincibleTimer = 1.0f;
     }
 
     // Update is called once per frame

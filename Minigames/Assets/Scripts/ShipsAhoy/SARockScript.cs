@@ -19,7 +19,7 @@ public class SARockScript : MonoBehaviour {
     // Use this for initialization
     void Start()
     {
-        speed = 5.0f;
+        speed = 3.0f;
 
         onScreen = false;
 
@@ -32,14 +32,15 @@ public class SARockScript : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-        if (game.IsScrolling)
+        if (!game.GameOver && game.IsScrolling)
         {
             Move();
         }
 
         //Destroy rock if the player is scrolling and if
-        //it is not already on screen
-        if (!onScreen && !game.IsScrolling)
+        //it is not already on screen, or if they are not on screen
+        //and the game has ended
+        if ((!onScreen && !game.IsScrolling) || (!onScreen && game.GameOver))
         {
             Destroy(gameObject);
         }
