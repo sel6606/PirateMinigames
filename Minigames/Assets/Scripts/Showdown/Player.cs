@@ -7,6 +7,8 @@ public class Player : MonoBehaviour {
     public int health;
     public float speed;
     public Showdown game;
+    public bool isInvincible;
+    public float invincibleTimer;
 
     public int Health
     {
@@ -19,6 +21,8 @@ public class Player : MonoBehaviour {
     {
         game = GameObject.Find("GameManager2").GetComponent<Showdown>();
         speed = 2.5f;
+        isInvincible = false;
+        invincibleTimer = 2.0f;
 	}
 	
 	// Update is called once per frame
@@ -29,6 +33,26 @@ public class Player : MonoBehaviour {
             Move();
             SpawnCannonballs();
             CheckScreenBounds();
+            if (isInvincible)
+            {
+                //Decrease the invincible timer
+                invincibleTimer -= Time.deltaTime;
+
+                //Blink the player
+                gameObject.GetComponent<SpriteRenderer>().enabled = !gameObject.GetComponent<SpriteRenderer>().enabled;
+
+                if (invincibleTimer <= 0)
+                {
+                    //Stop making the player invincible
+                    isInvincible = false;
+
+                    //Make sure the player is visible
+                    gameObject.GetComponent<SpriteRenderer>().enabled = true;
+
+                    //Reset timer
+                    invincibleTimer = 2.0f;
+                }
+            }
         }
 	}
 
@@ -44,10 +68,10 @@ public class Player : MonoBehaviour {
                 transform.position -= transform.up * speed * Time.deltaTime;
             }
             //move backward
-            /*if (Input.GetKey(KeyCode.S))
+            if (Input.GetKey(KeyCode.S))
             {
                 transform.position += transform.up * speed * Time.deltaTime;
-            }*/
+            }
             //turn left
             if (Input.GetKey(KeyCode.A))
             {
@@ -67,20 +91,20 @@ public class Player : MonoBehaviour {
             {
                 transform.position -= transform.up * speed * Time.deltaTime;
             }
-            /*move backward
+            //move backward
             if (Input.GetKey(KeyCode.DownArrow))
             {
                 transform.position += transform.up * speed * Time.deltaTime;
-            }*/
+            }
             //turn left
             if (Input.GetKey(KeyCode.LeftArrow))
             {
-                transform.eulerAngles += new Vector3(0, 0, 1);
+                transform.eulerAngles -= new Vector3(0, 0, 1);
             }
             //turn right
             if (Input.GetKey(KeyCode.RightArrow))
             {
-                transform.eulerAngles -= new Vector3(0, 0, 1);
+                transform.eulerAngles += new Vector3(0, 0, 1);
             }
         }
     }
@@ -88,16 +112,16 @@ public class Player : MonoBehaviour {
     //spawns cannonballs on-screen
     public void SpawnCannonballs()
     {
-        //spawn a cannonball on the right if player one is pressing 'E'
-        if (Input.GetKeyDown(KeyCode.E) && this.gameObject.name == "PlayerOne")
+        //spawn a cannonball on the right if player one is pressing 'M'
+        if (Input.GetKeyDown(KeyCode.M) && this.gameObject.name == "PlayerOne")
         {
             GameObject ball = Instantiate(game.cannonballSprite, transform.position, Quaternion.identity);
             ball.AddComponent<Cannonball>();
             ball.GetComponent<Cannonball>().owner = 1;
             ball.transform.right = -(this.transform.right);
         }
-        //spawn a cannonball on the left if player one is pressing 'Q'
-        if (Input.GetKeyDown(KeyCode.Q) && this.gameObject.name == "PlayerOne")
+        //spawn a cannonball on the left if player one is pressing 'N'
+        if (Input.GetKeyDown(KeyCode.N) && this.gameObject.name == "PlayerOne")
         {
             GameObject ball = Instantiate(game.cannonballSprite, transform.position, Quaternion.identity);
             ball.AddComponent<Cannonball>();
@@ -105,20 +129,20 @@ public class Player : MonoBehaviour {
             ball.transform.right = this.transform.right;
         }
         //spawn a cannonball on the right if player two is pressing '3' on the keypad
-        if (Input.GetKeyDown(KeyCode.KeypadEnter) && this.gameObject.name == "PlayerTwo")
-        {
-            GameObject ball = Instantiate(game.cannonballSprite, transform.position, Quaternion.identity);
-            ball.AddComponent<Cannonball>();
-            ball.GetComponent<Cannonball>().owner = 2;
-            ball.transform.right = -(this.transform.right);
-        }
-        //spawn a cannonball on the left if player two is pressing '1' on the keypad
-        if (Input.GetKeyDown(KeyCode.KeypadPeriod) && this.gameObject.name == "PlayerTwo")
+        if (Input.GetKeyDown(KeyCode.Keypad3) && this.gameObject.name == "PlayerTwo")
         {
             GameObject ball = Instantiate(game.cannonballSprite, transform.position, Quaternion.identity);
             ball.AddComponent<Cannonball>();
             ball.GetComponent<Cannonball>().owner = 2;
             ball.transform.right = this.transform.right;
+        }
+        //spawn a cannonball on the left if player two is pressing '1' on the keypad
+        if (Input.GetKeyDown(KeyCode.Keypad1) && this.gameObject.name == "PlayerTwo")
+        {
+            GameObject ball = Instantiate(game.cannonballSprite, transform.position, Quaternion.identity);
+            ball.AddComponent<Cannonball>();
+            ball.GetComponent<Cannonball>().owner = 2;
+            ball.transform.right = -(this.transform.right);
         }
     }
 
@@ -126,18 +150,20 @@ public class Player : MonoBehaviour {
     public void OnTriggerEnter2D(Collider2D collision)
     {
         //if the player collides with a cannonball...
-        if (collision.gameObject.tag == "cannonball")
+        if (collision.gameObject.tag == "cannonball" && isInvincible == false)
         {
             //reduce pleyer two's health if the cannonball was fired by player one and collides with player two
             if (collision.gameObject.GetComponent<Cannonball>().owner == 1 && this.gameObject.name == "PlayerTwo")
             {
                 this.health--;
+                isInvincible = true;
                 Destroy(collision.gameObject);
             }
             //reduce player one's health if the cannonball was fired by player two and collides with player one
             if (collision.gameObject.GetComponent<Cannonball>().owner == 2 && this.gameObject.name == "PlayerOne")
             {
                 this.health--;
+                isInvincible = true;
                 Destroy(collision.gameObject);
             }
         }

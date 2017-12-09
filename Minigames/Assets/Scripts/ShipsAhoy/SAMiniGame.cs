@@ -46,7 +46,7 @@ public class SAMiniGame : MonoBehaviour {
         isStarted = false;
         gameOver = false;
 
-        spawnTimer = 0.4f;
+        spawnTimer = 0.0f;
     }
 
     // Update is called once per frame
@@ -226,7 +226,7 @@ public class SAMiniGame : MonoBehaviour {
             if (spawnTimer <= 0)
             {
                 //Reset timer
-                spawnTimer = 2.0f;
+                spawnTimer = 1.8f;
 
                 //Spawn in rocks
                 SpawnRockInterval();
@@ -245,7 +245,7 @@ public class SAMiniGame : MonoBehaviour {
     /// </summary>
     private void SpawnRocks()
     {
-        int randCount = Random.Range(1, 4);
+        int randCount = Random.Range(1, 3);
 
         for (int i = 0; i < randCount; i++)
         {
@@ -268,11 +268,11 @@ public class SAMiniGame : MonoBehaviour {
     {
         float time = 1.0f;
 
-        for (int i = 0; i < 4; i++)
+        for (int i = 0; i < 3; i++)
         {
             Invoke("SpawnRocks", time);
 
-            time += 0.5f;
+            time += 0.7f;
         }
     }
 }
