@@ -297,7 +297,7 @@ public class SRMiniGame : MonoBehaviour {
             gameOverScreen.SetActive(true);
 
             //Show how much gold the player won
-            goldUI.text = "Your colllected " + score.ToString() + " silver coins" + "\n";
+            goldUI.text = "You collected " + score.ToString() + " silver coins" + "\n";
             goldUI.text += "Congratulations, you won " + gold.ToString() + " gold";
         }
     }
